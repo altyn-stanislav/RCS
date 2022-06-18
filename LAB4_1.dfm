@@ -2,7 +2,7 @@
   Left = -8
   Top = -8
   Caption = #1051#1072#1073#1086#1088#1072#1090#1086#1088#1085#1072#1103' '#1088#1072#1073#1086#1090#1072' '#8470'4-1 '#1057#1072#1084#1086#1085#1072#1074#1077#1076#1077#1085#1080#1077' '#1051#1040' '#1085#1072' '#1094#1077#1083#1100
-  ClientHeight = 1023
+  ClientHeight = 1005
   ClientWidth = 1924
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@
   object Label28: TLabel
     Left = 28
     Top = -9
-    Width = 578
+    Width = 617
     Height = 48
     Caption = #1057#1072#1084#1086#1085#1072#1074#1077#1076#1077#1085#1080#1077' '#1088#1072#1082#1077#1090#1099' '#1085#1072' '#1094#1077#1083#1100
     Font.Charset = DEFAULT_CHARSET
@@ -178,17 +178,16 @@
   object Label27: TLabel
     Left = 725
     Top = 598
-    Width = 152
+    Width = 160
     Height = 29
     Caption = #1048#1047#1052#1045#1056#1045#1053#1048#1071
   end
   object Chart1: TChart
     Left = 8
-    Top = 49
+    Top = 45
     Width = 979
     Height = 966
     BackImage.Inside = True
-    BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Legend.Alignment = laBottom
     Legend.ColorWidth = 55
@@ -207,7 +206,6 @@
     MarginRight = 0
     MarginTop = 0
     Title.Alignment = taLeftJustify
-    Title.Brush.Color = clWhite
     Title.Brush.Style = bsClear
     Title.Font.Height = -24
     Title.Text.Strings = (
@@ -237,10 +235,12 @@
     BevelOuter = bvNone
     BevelWidth = 0
     TabOrder = 0
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 13
     object Label10: TLabel
       Left = 596
       Top = 905
-      Width = 70
+      Width = 71
       Height = 32
       Caption = #1054#1089#1100' Z'
       Font.Charset = DEFAULT_CHARSET
@@ -254,7 +254,7 @@
     object Label11: TLabel
       Left = 427
       Top = 0
-      Width = 70
+      Width = 71
       Height = 32
       Caption = #1054#1089#1100' X'
       Color = clBtnFace
@@ -270,7 +270,7 @@
     object РАКЕТА: TLabel
       Left = 40
       Top = 705
-      Width = 94
+      Width = 100
       Height = 29
       Caption = #1056#1040#1050#1045#1058#1040
       Font.Charset = DEFAULT_CHARSET
@@ -283,7 +283,7 @@
     object Label9: TLabel
       Left = 34
       Top = 347
-      Width = 63
+      Width = 70
       Height = 29
       Caption = #1062#1045#1051#1068
       Font.Charset = DEFAULT_CHARSET
@@ -296,7 +296,7 @@
     object Label21: TLabel
       Left = 40
       Top = 64
-      Width = 171
+      Width = 180
       Height = 29
       Caption = #1047#1054#1053#1040' '#1054#1041#1047#1054#1056#1040
       Font.Charset = DEFAULT_CHARSET
@@ -309,7 +309,7 @@
     object Label26: TLabel
       Left = 627
       Top = 784
-      Width = 266
+      Width = 276
       Height = 29
       Caption = #1054#1064#1048#1041#1050#1048' '#1048#1047#1052#1045#1056#1045#1053#1048#1049
       Font.Charset = DEFAULT_CHARSET
@@ -325,7 +325,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 226
+      EditLabel.Width = 231
       EditLabel.Height = 29
       EditLabel.Caption = #1052#1072#1082#1089'.'#1076#1072#1083#1100#1085#1086#1089#1090#1100', '#1082#1084
       EditLabel.Color = clBtnFace
@@ -346,7 +346,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 254
+      EditLabel.Width = 262
       EditLabel.Height = 29
       EditLabel.Caption = #1052#1072#1082#1089'.'#1089#1082#1086#1088#1086#1089#1090#1100', '#1082#1084'/'#1095#1072#1089
       Font.Charset = DEFAULT_CHARSET
@@ -365,7 +365,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 214
+      EditLabel.Width = 220
       EditLabel.Height = 29
       EditLabel.Caption = #1052#1072#1082#1089'.'#1087#1077#1088#1077#1075#1088#1091#1079#1082#1072', -'
       Font.Charset = DEFAULT_CHARSET
@@ -384,7 +384,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 191
+      EditLabel.Width = 195
       EditLabel.Height = 29
       EditLabel.Caption = #1044#1072#1083#1100#1085#1086#1089#1090#1100' '#1056#1042', '#1084
       Font.Charset = DEFAULT_CHARSET
@@ -403,7 +403,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 165
+      EditLabel.Width = 168
       EditLabel.Height = 29
       EditLabel.Caption = #1044#1072#1083#1100#1085#1086#1089#1090#1100', '#1082#1084
       LabelPosition = lpRight
@@ -416,7 +416,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 188
+      EditLabel.Width = 195
       EditLabel.Height = 29
       EditLabel.Caption = #1040#1079#1080#1084#1091#1090', '#1075#1088#1072#1076#1091#1089#1099
       LabelPosition = lpRight
@@ -429,7 +429,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 196
+      EditLabel.Width = 200
       EditLabel.Height = 29
       EditLabel.Caption = #1057#1082#1086#1088#1086#1089#1090#1100', '#1082#1084'/'#1095#1072#1089
       LabelPosition = lpRight
@@ -442,7 +442,7 @@
       Width = 57
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 157
+      EditLabel.Width = 166
       EditLabel.Height = 29
       EditLabel.Caption = #1050#1091#1088#1089', '#1075#1088#1072#1076#1091#1089#1099
       LabelPosition = lpRight
@@ -455,7 +455,7 @@
       Width = 63
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 184
+      EditLabel.Width = 188
       EditLabel.Height = 29
       EditLabel.Caption = #1052#1072#1082#1089'.'#1076#1072#1083#1100#1085#1086#1089#1090#1100
       LabelPosition = lpRight
@@ -468,7 +468,7 @@
       Width = 63
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 145
+      EditLabel.Width = 147
       EditLabel.Height = 29
       EditLabel.Caption = #1047#1086#1085#1072' '#1086#1073#1079#1086#1088#1072
       LabelPosition = lpRight
@@ -481,7 +481,7 @@
       Width = 63
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 273
+      EditLabel.Width = 269
       EditLabel.Height = 29
       EditLabel.Caption = #1063#1072#1089#1090#1086#1090#1072' '#1080#1079#1084#1077#1088#1077#1085#1080#1081', '#1043#1094
       LabelPosition = lpLeft
@@ -494,7 +494,7 @@
       Width = 63
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 239
+      EditLabel.Width = 240
       EditLabel.Height = 29
       EditLabel.Caption = #1052#1072#1090'.'#1086#1078#1080#1076#1072#1085#1080#1077', '#1075#1088#1072#1076'.'
       LabelPosition = lpLeft
@@ -507,7 +507,7 @@
       Width = 64
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 122
+      EditLabel.Width = 125
       EditLabel.Height = 29
       EditLabel.Caption = #1057#1050#1054', '#1075#1088#1072#1076'.'
       LabelPosition = lpLeft
@@ -520,7 +520,7 @@
       Width = 57
       Height = 32
       Alignment = taRightJustify
-      EditLabel.Width = 185
+      EditLabel.Width = 178
       EditLabel.Height = 24
       EditLabel.Caption = #1042#1088#1077#1084#1103' '#1084#1072#1085#1077#1074#1088#1072' 1, '#1089
       EditLabel.Font.Charset = DEFAULT_CHARSET
@@ -545,7 +545,7 @@
       Width = 57
       Height = 32
       Alignment = taRightJustify
-      EditLabel.Width = 185
+      EditLabel.Width = 178
       EditLabel.Height = 24
       EditLabel.Caption = #1042#1088#1077#1084#1103' '#1084#1072#1085#1077#1074#1088#1072' 2, '#1089
       EditLabel.Font.Charset = DEFAULT_CHARSET
@@ -570,7 +570,7 @@
       Width = 57
       Height = 32
       Alignment = taRightJustify
-      EditLabel.Width = 185
+      EditLabel.Width = 178
       EditLabel.Height = 24
       EditLabel.Caption = #1042#1088#1077#1084#1103' '#1084#1072#1085#1077#1074#1088#1072' 3, '#1089
       EditLabel.Font.Charset = DEFAULT_CHARSET
@@ -618,105 +618,78 @@
       TabOrder = 17
     end
     object Series2: TPointSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
       Marks.BackColor = 33023
       Marks.Color = 33023
-      Marks.Visible = False
       SeriesColor = clMaroon
       Title = #1062#1077#1083#1100
       ClickableLine = False
       Pointer.InflateMargins = True
       Pointer.Pen.Visible = False
       Pointer.Style = psCircle
-      Pointer.Visible = True
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
     end
     object Series3: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       SeriesColor = clBlue
       Title = #1057#1077#1082#1090#1086#1088'1'
+      Brush.BackColor = clDefault
       LinePen.Color = clBlue
       LinePen.Style = psDot
       Pointer.InflateMargins = True
       Pointer.Style = psRectangle
-      Pointer.Visible = False
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
     end
     object Series4: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       SeriesColor = clBlue
       Title = #1057#1077#1082#1090#1086#1088'2'
+      Brush.BackColor = clDefault
       LinePen.Color = clBlue
       LinePen.Style = psDot
       Pointer.InflateMargins = True
       Pointer.Style = psRectangle
-      Pointer.Visible = False
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
     end
     object Series5: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       SeriesColor = clBlue
       Title = #1057#1077#1082#1090#1086#1088'3'
+      Brush.BackColor = clDefault
       LinePen.Style = psDot
       Pointer.InflateMargins = True
       Pointer.Style = psRectangle
-      Pointer.Visible = False
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
     end
     object Series6: TPointSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
       Marks.Shadow.Color = 8553090
-      Marks.Visible = False
       Title = #1056#1072#1082#1077#1090#1072
       ClickableLine = False
       Pointer.Brush.Color = clGreen
       Pointer.InflateMargins = True
       Pointer.Pen.Visible = False
       Pointer.Style = psDiamond
-      Pointer.Visible = True
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
     end
     object Series8: TPointSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
       Marks.Shadow.Color = 8750469
-      Marks.Visible = False
       SeriesColor = clRed
       Title = #1042#1079#1088#1099#1074
       ClickableLine = False
       Pointer.InflateMargins = True
       Pointer.Pen.Visible = False
       Pointer.Style = psCircle
-      Pointer.Visible = True
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
@@ -732,8 +705,8 @@
     object Label3: TLabel
       Left = 36
       Top = 0
-      Width = 250
-      Height = 26
+      Width = 282
+      Height = 29
       Caption = #1057#1082#1088#1086#1089#1090#1100' '#1084#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1080#1103
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGreen
@@ -746,8 +719,8 @@
     object Label29: TLabel
       Left = 75
       Top = 25
-      Width = 162
-      Height = 26
+      Width = 184
+      Height = 29
       Caption = #1056#1077#1075#1091#1083#1080#1088#1091#1077#1084#1072#1103':'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGreen
@@ -796,7 +769,7 @@
     object Label7: TLabel
       Left = 8
       Top = 40
-      Width = 166
+      Width = 155
       Height = 24
       Caption = #1044#1086' '#1094#1077#1083#1080' '#1086#1089#1090#1072#1083#1086#1089#1100' '
       Font.Charset = DEFAULT_CHARSET
@@ -807,10 +780,10 @@
       ParentFont = False
     end
     object Label13: TLabel
-      Left = 9
+      Left = -2
       Top = 8
-      Width = 104
-      Height = 32
+      Width = 115
+      Height = 36
       Alignment = taRightJustify
       Caption = 'Label13'
       Font.Charset = DEFAULT_CHARSET
@@ -824,8 +797,8 @@
     object Label23: TLabel
       Left = 180
       Top = 14
-      Width = 15
-      Height = 24
+      Width = 16
+      Height = 25
       Caption = 'dt'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
@@ -838,8 +811,8 @@
     object Label24: TLabel
       Left = 206
       Top = 14
-      Width = 15
-      Height = 24
+      Width = 16
+      Height = 25
       Caption = 'dt'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
@@ -939,14 +912,12 @@
     Top = 863
     Width = 972
     Height = 123
-    BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Legend.Visible = False
     MarginBottom = 0
     MarginLeft = 0
     MarginRight = 0
     MarginTop = 5
-    Title.Brush.Color = clWhite
     Title.Brush.Style = bsClear
     Title.Font.Height = -19
     Title.Text.Strings = (
@@ -957,10 +928,12 @@
     LeftAxis.Grid.Visible = False
     View3D = False
     TabOrder = 7
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 13
     object Label6: TLabel
       Left = 401
       Top = 9
-      Width = 564
+      Width = 533
       Height = 24
       Caption = #1056#1072#1079#1085#1080#1094#1072' '#1084#1077#1078#1076#1091' '#1087#1077#1083#1077#1085#1075#1072#1084#1080' '#1080#1079#1084#1077#1088#1077#1085#1085#1099#1084' '#1080' '#1080#1089#1090#1080#1085#1085#1099#1084' ('#1082#1088#1072#1089#1085#1099#1081')'
       Font.Charset = DEFAULT_CHARSET
@@ -974,7 +947,7 @@
     object Label12: TLabel
       Left = 369
       Top = 72
-      Width = 594
+      Width = 560
       Height = 24
       Caption = #1056#1072#1079#1085#1080#1094#1072' '#1084#1077#1078#1076#1091' '#1082#1091#1088#1089#1086#1084' '#1076#1074#1080#1078#1077#1085#1080#1103' '#1056' '#1080' '#1087#1077#1083#1077#1085#1075#1086#1084' '#1080#1089#1090#1080#1085#1085#1099#1084' ('#1089#1080#1085#1080#1081')'
       Font.Charset = DEFAULT_CHARSET
@@ -985,43 +958,31 @@
       ParentFont = False
     end
     object LineSeries2: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       Title = #1056#1072#1079#1085#1080#1091#1072' '#1084#1077#1078#1076#1091' '#1087#1077#1083#1077#1085#1075#1086#1084' '#1080#1079#1084#1077#1088#1077#1085#1085#1099#1084' '#1080' '#1082#1091#1088#1089#1086#1084' '#1076#1074#1080#1078#1077#1085#1080#1103' '#1056
+      Brush.BackColor = clDefault
       LinePen.Color = clRed
       Pointer.InflateMargins = True
       Pointer.Style = psRectangle
-      Pointer.Visible = False
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
     end
     object Series7: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       Title = #1050#1091#1088#1089' - '#1080#1089#1090#1080#1085#1085#1099#1081' '#1087#1077#1083#1077#1085#1075
+      Brush.BackColor = clDefault
       Pointer.InflateMargins = True
       Pointer.Style = psRectangle
-      Pointer.Visible = False
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
       YValues.Order = loNone
     end
     object Series9: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       SeriesColor = clBlue
+      Brush.BackColor = clDefault
       Pointer.InflateMargins = True
       Pointer.Style = psRectangle
-      Pointer.Visible = False
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
@@ -1033,14 +994,12 @@
     Top = 734
     Width = 987
     Height = 123
-    BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Legend.Visible = False
     MarginBottom = 0
     MarginLeft = 0
     MarginRight = 0
     MarginTop = 5
-    Title.Brush.Color = clWhite
     Title.Brush.Style = bsClear
     Title.Font.Height = -19
     Title.Text.Strings = (
@@ -1051,6 +1010,8 @@
     LeftAxis.Grid.Visible = False
     View3D = False
     TabOrder = 8
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 13
     object Label5: TLabel
       Left = 750
       Top = 9
@@ -1060,14 +1021,10 @@
       Transparent = True
     end
     object LineSeries1: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       SeriesColor = clBlue
       Title = #1044#1072#1083#1100#1085#1086#1089#1090#1100' '#1076#1086' '#1094#1077#1083#1080
-      Brush.Color = clWhite
       Brush.Style = bsClear
+      Brush.BackColor = clDefault
       LineBrush = bsClear
       LinePen.Color = clRed
       LinePen.Visible = False
@@ -1082,15 +1039,11 @@
       YValues.Order = loNone
     end
     object Series1: TLineSeries
-      Marks.Arrow.Visible = True
-      Marks.Callout.Brush.Color = clBlack
-      Marks.Callout.Arrow.Visible = True
-      Marks.Visible = False
       Title = #1056#1042
+      Brush.BackColor = clDefault
       LinePen.Color = clGreen
       Pointer.InflateMargins = True
       Pointer.Style = psRectangle
-      Pointer.Visible = False
       XValues.Name = 'X'
       XValues.Order = loAscending
       YValues.Name = 'Y'
@@ -1114,8 +1067,8 @@
     object Label14: TLabel
       Left = 8
       Top = 5
-      Width = 74
-      Height = 24
+      Width = 78
+      Height = 25
       Alignment = taCenter
       Caption = 'Label14'
       Font.Charset = DEFAULT_CHARSET

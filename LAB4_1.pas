@@ -1,15 +1,15 @@
-unit LAB4_1;
+п»їunit LAB4_1;
 
-{Служебная программа для лабораторной работы РСУ ЛР4-1
+{пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ4-1
 
-                      ИЗМЕНЕНИЯ НЕ ВНОСИТЬ !!!}
+                      пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ !!!}
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, TeEngine, Series, StdCtrls, ExtCtrls, TeeProcs, Chart, jpeg, Math,
-  ComCtrls, Menus, CheckLst, Lab4_1Data;
+  ComCtrls, Menus, CheckLst, Lab4_1Data, VclTee.TeeGDIPlus;
 
 type
   TForm1 = class(TForm)
@@ -56,7 +56,6 @@ type
     LabeledEdit2: TLabeledEdit;
     LabeledEdit3: TLabeledEdit;
     LabeledEdit4: TLabeledEdit;
-    РАКЕТА: TLabel;
     LabeledEdit5: TLabeledEdit;
     LabeledEdit1: TLabeledEdit;
     LabeledEdit6: TLabeledEdit;
@@ -103,7 +102,7 @@ var
  Procedure DrawTarget(PrR: boolean; Xtarget, Ztarget, K: real; bm1 : TBitMap; D_max, D_min, Alfa_max, Alfa_min: integer);
 
  implementation
-   function MyArcTan(DZ, DX: Extended):Extended;   {для горизонтальной плоскости!}
+   function MyArcTan(DZ, DX: Extended):Extended;   {пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!}
 begin
   if (DX = 0) and (DZ = 0) then Result:=0 else
   if  DX = 0 then
@@ -128,34 +127,34 @@ begin
 
 
 // -----------------------------------------------------------------
-  dt:=0.1;     // Интервал дискретизации по времени
+  dt:=0.1;     // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   lifetime:=20;
   Tstart:=3;
   Tpoisk:=5;
 
-     Drmax    :=StrToFloat(Form1.LabeledEdit1.Text);    // км
-     Vrmax    :=StrToFloat(Form1.LabeledEdit2.Text)*1000/3600;     // км/час в м/с
+     Drmax    :=StrToFloat(Form1.LabeledEdit1.Text);    // пїЅпїЅ
+     Vrmax    :=StrToFloat(Form1.LabeledEdit2.Text)*1000/3600;     // пїЅпїЅ/пїЅпїЅпїЅ пїЅ пїЅ/пїЅ
      nxmax    :=StrToFloat(Form1.LabeledEdit3.Text);    //  -
-     Rv       :=StrToFloat(Form1.LabeledEdit4.Text);    //   м
+     Rv       :=StrToFloat(Form1.LabeledEdit4.Text);    //   пїЅ
 
-     Dc       :=StrToFloat(Form1.LabeledEdit5.Text)*1000;      // км в м
-     Azimc    :=StrToFloat(Form1.LabeledEdit6.Text);           // градусы
-     Vc       :=StrToFloat(Form1.LabeledEdit7.Text)*1000/3600;    // км/час в м/с
-     Kc       :=StrToFloat(Form1.LabeledEdit8.Text);           //  градусы
+     Dc       :=StrToFloat(Form1.LabeledEdit5.Text)*1000;      // пїЅпїЅ пїЅ пїЅ
+     Azimc    :=StrToFloat(Form1.LabeledEdit6.Text);           // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+     Vc       :=StrToFloat(Form1.LabeledEdit7.Text)*1000/3600;    // пїЅпїЅ/пїЅпїЅпїЅ пїЅ пїЅ/пїЅ
+     Kc       :=StrToFloat(Form1.LabeledEdit8.Text);           //  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-     Dmax     :=round(StrToFloat(Form1.LabeledEdit9.Text));    // км
-     ZonaObz  :=round(StrToFloat(Form1.LabeledEdit10.Text));    // градусы
+     Dmax     :=round(StrToFloat(Form1.LabeledEdit9.Text));    // пїЅпїЅ
+     ZonaObz  :=round(StrToFloat(Form1.LabeledEdit10.Text));    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
      Tdisk    :=round(1/StrToFloat(Form1.LabeledEdit11.Text)/dt);    // -
-     MO       :=StrToFloat(Form1.LabeledEdit12.Text);      // градусы
-     CKO      :=StrToFloat(Form1.LabeledEdit13.Text);      // градусы
+     MO       :=StrToFloat(Form1.LabeledEdit12.Text);      // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+     CKO      :=StrToFloat(Form1.LabeledEdit13.Text);      // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-// Время маневра + Дипольные отражатели
-     Ttr1     :=round(StrToFloat(Form1.LabeledEdit14.Text));      // с
-     Ttr2     :=round(StrToFloat(Form1.LabeledEdit15.Text));      // с
-     Ttr3     :=round(StrToFloat(Form1.LabeledEdit16.Text));      // с
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ + пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+     Ttr1     :=round(StrToFloat(Form1.LabeledEdit14.Text));      // пїЅ
+     Ttr2     :=round(StrToFloat(Form1.LabeledEdit15.Text));      // пїЅ
+     Ttr3     :=round(StrToFloat(Form1.LabeledEdit16.Text));      // пїЅ
 
-     Trmax := Drmax*1000/Vrmax;          // Максимальное время полета ракеты, с
+     Trmax := Drmax*1000/Vrmax;          // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ
      nymax := nxmax;
      if Ttr1=0 then ttr1:=10000;
      if Ttr2=0 then ttr2:=10000;
@@ -166,21 +165,21 @@ begin
 
      Label14.Caption:='';
 
-     Label1.Caption:=IntToStr(Dmin)+', км';
-     Label2.Caption:=IntToStr(Dmax)+', км';
-     Label4.Caption:=FloatToStr(-ZonaObz/2)+', град';
-     Label25.Caption:=FloatToStr(ZonaObz/2)+', град';
+     Label1.Caption:=IntToStr(Dmin)+', пїЅпїЅ';
+     Label2.Caption:=IntToStr(Dmax)+', пїЅпїЅ';
+     Label4.Caption:=FloatToStr(-ZonaObz/2)+', пїЅпїЅпїЅпїЅ';
+     Label25.Caption:=FloatToStr(ZonaObz/2)+', пїЅпїЅпїЅпїЅ';
      z:=0;
-     Label19.Caption:=IntToStr(z)+', град';
+     Label19.Caption:=IntToStr(z)+', пїЅпїЅпїЅпїЅ';
      l:=round((z-ZonaObz)/4);
-     Label18.Caption:=IntToStr(l)+' град';
+     Label18.Caption:=IntToStr(l)+' пїЅпїЅпїЅпїЅ';
      l:=round((z+ZonaObz)/4);
-     Label22.Caption:=IntToStr(l)+' град';
+     Label22.Caption:=IntToStr(l)+' пїЅпїЅпїЅпїЅ';
      z:=round((Dmax-Dmin)/4);
      l:=Dmin;
-     Label17.Caption:=IntToStr(l+z)+', км';
-     Label16.Caption:=IntToStr(l+z*2)+', км';
-     Label15.Caption:=IntToStr(l+z*3)+', км';
+     Label17.Caption:=IntToStr(l+z)+', пїЅпїЅ';
+     Label16.Caption:=IntToStr(l+z*2)+', пїЅпїЅ';
+     Label15.Caption:=IntToStr(l+z*3)+', пїЅпїЅ';
 
      Chart1.Series[0].Clear;
      Chart1.Series[1].Clear;
@@ -252,16 +251,16 @@ begin
 
       IndP := TBitMap.Create;
       IndP.Transparent:=True;
-      IndP.loadFromFile('Основа.bmp') ;
+      IndP.loadFromFile('foundation.bmp') ;
       IndP.Canvas.Pen.Color:=RGB(240,240,240);
 
  {     Boom := TBitMap.Create;
       Boom.Transparent:=True;
-      Boom.loadFromFile('Взрыв.bmp') ;
+      Boom.loadFromFile('explosion.bmp') ;
       Form1.Canvas.Draw(1096, 40, IndP);      }
 
 
-//Цель (начальное положение)
+//пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
   Xc[1]:=Dc*cos(Azimc*pi/180);
   Zc[1]:=Dc*sin(Azimc*pi/180);
   Vxc:=Vc*cos(Kc*pi/180);
@@ -269,7 +268,7 @@ begin
   Axc:=0;
   Azc:=0;
 
-//Ракета (начальное положение)
+//пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
   Xr[1]:=0;
   Zr[1]:=0;
   Vr:= 0;
@@ -296,7 +295,7 @@ begin
    for i:=2 to N1 do
       begin
 
-// Изменение dt
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ dt
          if Drc[i-1]<500
            then dt:=0.001
            else
@@ -306,30 +305,30 @@ begin
          dtt[i]:=dt;
 
 
-      st:=st+dt*100;         //текущее время
+      st:=st+dt*100;         //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
       t:=st/100;
       TrackBar2.Position:=trunc(st/10/Trmax);
 
-//Движение цели
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         Xc[i]:=Xc[i-1]+Vxc*dt;
         Zc[i]:=Zc[i-1]+Vzc*dt;
 
-//Движение ракеты
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         Xr[i]:=Xr[i-1]+Vxr*dt;
         Zr[i]:=Zr[i-1]+Vzr*dt;
 
-//Истинные значения
-        Drc[i]:=sqrt((Xr[i]-Xc[i])*(Xr[i]-Xc[i])+(Zr[i]-Zc[i])*(Zr[i]-Zc[i])); //Дальность
-        Prc[i]:=MyArcTan(Zc[i]-Zr[i],Xc[i]-Xr[i]);                             //Пеленг
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        Drc[i]:=sqrt((Xr[i]-Xc[i])*(Xr[i]-Xc[i])+(Zr[i]-Zc[i])*(Zr[i]-Zc[i])); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        Prc[i]:=MyArcTan(Zc[i]-Zr[i],Xc[i]-Xr[i]);                             //пїЅпїЅпїЅпїЅпїЅпїЅ
                  if Prc[i]>+Pi then Prc[i]:=Prc[i]-2*Pi;
                  if Prc[i]<-Pi then Prc[i]:=Prc[i]+2*Pi;
 
-//Выброс облака дипольных отражателей
+//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Trap[i]:=False;
      if CheckBox2.checked=False
        then
          begin
-           PrcIzm[i]:= RandG(Prc[i],CKO*pi/180)+MO*pi/180;   // Измерения пеленга с (ошибками)
+           PrcIzm[i]:= RandG(Prc[i],CKO*pi/180)+MO*pi/180;   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
          end
        else
          begin
@@ -338,7 +337,7 @@ begin
                 begin
                   if iTr1=0 then begin itr1:=i; z:=trunc(Drc[i]/Vrmax);
                                        if z>Lifetime then z:=Lifetime-1 end;
-                  PrcIzm[i]:= RandG(Prc[itr1],CKO*pi/180)+MO*pi/180;  // Измерение на ДО
+                  PrcIzm[i]:= RandG(Prc[itr1],CKO*pi/180)+MO*pi/180;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
                   Trap[i]:=True;
                 end
               else
@@ -347,7 +346,7 @@ begin
                     begin
                       if iTr2=0 then begin itr2:=i; z:=trunc(Drc[i]/Vrmax);
                                            if z>Lifetime then z:=Lifetime-1  end;
-                      PrcIzm[i]:= RandG(Prc[itr2],CKO*pi/180)+MO*pi/180;    // Измерение на ДО
+                      PrcIzm[i]:= RandG(Prc[itr2],CKO*pi/180)+MO*pi/180;    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
                       Trap[i]:=True;
                     end
                   else
@@ -356,14 +355,14 @@ begin
                         begin
                           if iTr3=0 then begin itr3:=i; z:=trunc(Drc[i]/Vrmax);
                                                if z>Lifetime then z:=Lifetime-1  end;
-                          PrcIzm[i]:= RandG(Prc[itr3],CKO*pi/180)+MO*pi/180;    // Измерение на ДО
+                          PrcIzm[i]:= RandG(Prc[itr3],CKO*pi/180)+MO*pi/180;    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
                           Trap[i]:=True;
                         end
                       else
-                        PrcIzm[i]:= RandG(Prc[i],CKO*pi/180)+MO*pi/180;  // Измерения пеленга с (ошибками)
+                        PrcIzm[i]:= RandG(Prc[i],CKO*pi/180)+MO*pi/180;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
          end;
 
-// Учет частоты обновления изметрительной информации
+// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (PrSopr=True) and (t>Tstart)
           then
             begin
@@ -374,28 +373,28 @@ begin
             end;
 
     {
-// Модель сбойных отсчетов
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if random <0.005 then
           Prc[i]:=(random*360)*pi/180;
-// Модель пропадаения информации
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if random<0.05 then
           Prc[i]:=Prc[i-1]; }
-// Условие наведение ракеты
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 //        Kr:=PrcIzm[i];
 
 
-// Если срыв сопровождения, то в поиск - крутимся
+// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if dt=0.01 then Wr:=0.3 else
            if dt=0.1 then Wr:=3 else
                             Wr:=30;
         if (CheckBox3.checked=True) and (PrSopr=False) and (t>Tpoisk) then
                 Kr:=Kr+Wr*pi/180*dt;
 
-// Требуемое ускорение ракеты (для расчета перегрузок)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
         Axr:=(Vrmax*cos(Kr)-Vxr);
         Azr:=(Vrmax*sin(Kr)-Vzr);
 
-// Ограничения на максимальные перегрузки
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
         if t>Tstart then
            begin
@@ -406,14 +405,14 @@ begin
           end;
           
 
-// Требуемая скорость ракеты
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         Vxr:=Vxr+Axr*dt;
         Vzr:=Vzr+Azr*dt;
         Kr:=Myarctan(Vzr,Vxr);
                  if Kr>+Pi then Kr:=Kr-2*Pi;
                  if Kr<-Pi then Kr:=Kr+2*Pi;
 
-// Проверка условия сопровождения
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
       if t>Tpoisk then
         begin
           if abs((Prc[i]-Kr)*180/pi) < 30
@@ -439,7 +438,7 @@ begin
             end;
         end;
 
-//Ускорение цели (маневрирование цели)
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
         if dt=0.01 then Wkc:=0.3 else
            if dt=0.1 then Wkc:=3 else
                             Wkc:=30;
@@ -451,7 +450,7 @@ begin
          Vzc:=Vc*sin(Kc*pi/180);
 
 
-// Проверка условия выполнения задачи (подрыв БЧ)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ)
          if (t>1) and (Drc[i]<1000) and (Drc[i] < Rv)
            then Explosion[i]:=True
            else Explosion[i]:=False;;
@@ -461,7 +460,7 @@ begin
 
 // -----------------------------------------------------------------------------
 
-// Масштабирование графиков
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
    if Drc[i]<10000 then
     With Chart2.LeftAxis do
      begin
@@ -503,18 +502,18 @@ begin
 
       if stop=true then
          break;
-      IndP.loadFromFile('Основа.bmp');
+      IndP.loadFromFile('foundation.bmp');
 
-      Label24.Caption:=FloatToStr(dt)+' с';
-      Label13.Caption:=FloatToStr(trunc(st/100))+' с';
-//      Label7.Caption :='До цели осталось ';
-      Label30.Caption :=FloatToStr(trunc(Drc[i]))+' м';
-      Label8.Caption  :='Топлива на '+FloatToStr(trunc(Trmax-st/100))+' с полета';
-      Label31.Caption :='из '+FloatToStr(trunc(Trmax))+' с';
-      Label32.Caption :='Промах '+FloatToStr(trunc(DrcMin))+' м';
+      Label24.Caption:=FloatToStr(dt)+' пїЅ';
+      Label13.Caption:=FloatToStr(trunc(st/100))+' пїЅ';
+//      Label7.Caption :='пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ';
+      Label30.Caption :=FloatToStr(trunc(Drc[i]))+' пїЅ';
+      Label8.Caption  :='пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ '+FloatToStr(trunc(Trmax-st/100))+' пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ';
+      Label31.Caption :='пїЅпїЅ '+FloatToStr(trunc(Trmax))+' пїЅ';
+      Label32.Caption :='пїЅпїЅпїЅпїЅпїЅпїЅ '+FloatToStr(trunc(DrcMin))+' пїЅ';
 
-      DrawTarget(False, Xc[i]/1000, Zc[i]/1000, K, IndP, Dmax,  Dmin, Round(ZonaObz/2),-round(ZonaObz/2)); {Отрисовка цели}
-      DrawTarget(True,  Xr[i]/1000, Zr[i]/1000, K, IndP, Dmax,  Dmin, Round(ZonaObz/2),-round(ZonaObz/2)); {Отрисовка Р}
+      DrawTarget(False, Xc[i]/1000, Zc[i]/1000, K, IndP, Dmax,  Dmin, Round(ZonaObz/2),-round(ZonaObz/2)); {пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ}
+      DrawTarget(True,  Xr[i]/1000, Zr[i]/1000, K, IndP, Dmax,  Dmin, Round(ZonaObz/2),-round(ZonaObz/2)); {пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ}
 
        if (Trap[i]=True) and (CheckBox2.checked=True)
          then
@@ -527,7 +526,7 @@ begin
                DrawTrap(Xc[itr3]/1000, Zc[itr3]/1000, K, IndP, Dmax,  Dmin, Round(ZonaObz/2),-round(ZonaObz/2),lifetime,Ttr3);
            end;
 
-      Form1.Canvas.Draw(1096, 40, IndP);  {Отрисовка индикатора}
+      Form1.Canvas.Draw(1096, 40, IndP);  {пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ}
 
       Chart1.Series[0].AddXY(Zc[i]/1000,Xc[i]/1000);
       Chart1.Series[4].AddXY(Zr[i]/1000,Xr[i]/1000);
@@ -555,7 +554,7 @@ begin
               end;
             Label14.Caption:='';
             Label14.Font.Color:=clRed;
-            Label14.Caption:='Цель уничтожена';
+            Label14.Caption:='пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
             Exit
 //            break;
           end;
@@ -566,7 +565,7 @@ begin
           begin
             Label14.Caption:='';
               Label14.Font.Color:=clRed;
-            Label14.Caption:='Ракета самоликвидировалась';
+            Label14.Caption:='пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
             for j:=1 to 100 do
               begin
                 r:=300*sqrt(-2*Ln(random));
@@ -584,14 +583,14 @@ begin
           begin
             Label14.Caption:='';
             Label14.Font.Color:=clGreen;
-            Label14.Caption:='Сопровождение цели';
+            Label14.Caption:='пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ';
           end
           else
             begin
               Label14.Font.Color:=clPurple;
               if (CheckBox3.checked=True)
-                then Label14.Caption:='Срыв сопровождения, поиск'
-                else Label14.Caption:='Срыв сопровождения';
+                then Label14.Caption:='пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ'
+                else Label14.Caption:='пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
             end;
 
        if PrSoprLT
@@ -599,7 +598,7 @@ begin
            begin
              Label14.Font.Color:=clRed;
              Label14.Caption:='';
-             Label14.Caption:='Сопровождение ложной цели';
+             Label14.Caption:='пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ';
            end;
 
        if (st/100) <= Tstart
@@ -607,7 +606,7 @@ begin
           begin
             Label14.Font.Color:=clBlue;
             Label14.Caption:='';
-            Label14.Caption:='Старт ракеты';
+            Label14.Caption:='пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ';
           end;
 
        if (st/100>Tstart) and (st/100<=Tpoisk)
@@ -615,7 +614,7 @@ begin
           begin
             Label14.Caption:='';
             Label14.Font.Color:=clNavy;
-            Label14.Caption:='Поиск цели';
+            Label14.Caption:='пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ';
           end;
 
 
@@ -675,7 +674,7 @@ end;
    DInd:=(DReal-D_min)*k;
 
    Bm := TBitMap.Create;
-   Bm.LoadFromFile('ИндСектор.bmp');
+   Bm.LoadFromFile('indSector.bmp');
 
    for j:=0 to Round(Xind/2) do
    if (bm.Canvas.pixels[(Round(Xind/2)+j),Yind-round(Dind)] <> clblack) then
@@ -754,7 +753,7 @@ end;
    DInd:=(DReal-D_min)*k;
 
    Bm := TBitMap.Create;
-   Bm.LoadFromFile('ИндСектор.bmp');
+   Bm.LoadFromFile('indSector.bmp');
    for j:=0 to Round(Xind/2) do
    if (bm.Canvas.pixels[(Round(Xind/2)+j),Yind-round(Dind)] <> clblack) then
     break
