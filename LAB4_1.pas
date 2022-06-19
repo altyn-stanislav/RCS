@@ -1,19 +1,17 @@
 ﻿unit LAB4_1;
 
-{ ��������� ��������� ��� ������������ ������ ��� ��4-1
-
-  ��������� �� ������� !!! }
-
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, TeEngine, Series, StdCtrls, ExtCtrls, TeeProcs, Chart, jpeg, Math,
-  ComCtrls, Menus, CheckLst, Lab4_1Data, VclTee.TeeGDIPlus;
+  ComCtrls, Menus, CheckLst, VclTee.TeeGDIPlus,
+
+  Lab4_1Data;
 
 type
   TForm1 = class(TForm)
-    Chart1: TChart;
+    RealPictureChart: TChart;
     Button1: TButton;
     Button2: TButton;
     Label10: TLabel;
@@ -24,6 +22,7 @@ type
     Label13: TLabel;
     Panel3: TPanel;
     Label3: TLabel;
+    Label8: TLabel;
     Label23: TLabel;
     Label24: TLabel;
     Series2: TPointSeries;
@@ -42,9 +41,6 @@ type
     Series5: TLineSeries;
     Series6: TPointSeries;
     Series7: TLineSeries;
-    Label4: TLabel;
-    Label18: TLabel;
-    Label19: TLabel;
     Label20: TLabel;
     Label2: TLabel;
     Label15: TLabel;
@@ -52,7 +48,7 @@ type
     Label17: TLabel;
     Label1: TLabel;
     Label7: TLabel;
-    Label8: TLabel;
+
     LabeledEdit2: TLabeledEdit;
     LabeledEdit3: TLabeledEdit;
     LabeledEdit4: TLabeledEdit;
@@ -67,8 +63,6 @@ type
     Label21: TLabel;
     LabeledEdit9: TLabeledEdit;
     LabeledEdit10: TLabeledEdit;
-    Label22: TLabel;
-    Label25: TLabel;
     Label26: TLabel;
     Label27: TLabel;
     LabeledEdit11: TLabeledEdit;
@@ -98,34 +92,17 @@ var
   Form1: TForm1;
   stop, PrSopr, PrSoprLT, PrR: boolean;
   i, jj: Integer;
-Procedure DrawTrap(Xtarget, Ztarget, K: real; bm1: TBitMap;
-  D_max, D_min, Alfa_max, Alfa_min, lifetime, tr: Integer);
-Procedure DrawTarget(PrR: boolean; Xtarget, Ztarget, K: real; bm1: TBitMap;
-  D_max, D_min, Alfa_max, Alfa_min: Integer);
+Procedure DrawTrap(Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min, lifetime, tr: Integer);
+Procedure DrawTarget(PrR: boolean; Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min: Integer);
 
 implementation
 
-function MyArcTan(DZ, DX: Extended): Extended; { ��� �������������� ���������! }
-begin
-  if (DX = 0) and (DZ = 0) then
-    Result := 0
-  else if DX = 0 then
-  begin
-    if DZ > 0 then
-      Result := pi / 2
-    else
-      Result := -pi / 2
-  end
-  else if DX > 0 then
-    Result := ArcTan(DZ / DX)
-  else
-    Result := (ArcTan(DZ / DX) + pi)
-end;
 {$R *.dfm}
 
+// COMMAND START
 procedure TForm1.Button1Click(Sender: TObject);
 var
-  IndP, Boom: TBitMap;
+  IndP: TBitMap;
   z, l, tr, tdiskr, Tstart, Tpoisk, itr, itr1, itr2, itr3: Integer;
 
   Schetchik, j, CentreX, CentreY, lt2, xx, yy: Integer;
@@ -134,70 +111,61 @@ var
 begin
   stop := false;
 
-  // -----------------------------------------------------------------
-  dt := 0.1; // �������� ������������� �� �������
+  // Init
+  dt := 0.1;
   lifetime := 20;
   Tstart := 3;
   Tpoisk := 5;
 
-  Drmax := StrToFloat(Form1.LabeledEdit1.Text); // ��
-  Vrmax := StrToFloat(Form1.LabeledEdit2.Text) * 1000 / 3600; // ��/��� � �/�
-  nxmax := StrToFloat(Form1.LabeledEdit3.Text); // -
-  Rv := StrToFloat(Form1.LabeledEdit4.Text); // �
+  Drmax := StrToFloat(Form1.LabeledEdit1.Text);
+  Vrmax := StrToFloat(Form1.LabeledEdit2.Text) * 1000 / 3600; // км в час перевод в метры в сек
+  nxmax := StrToFloat(Form1.LabeledEdit3.Text);
+  Rv := StrToFloat(Form1.LabeledEdit4.Text);
 
-  Dc := StrToFloat(Form1.LabeledEdit5.Text) * 1000; // �� � �
-  Azimc := StrToFloat(Form1.LabeledEdit6.Text); // �������
-  Vc := StrToFloat(Form1.LabeledEdit7.Text) * 1000 / 3600; // ��/��� � �/�
-  Kc := StrToFloat(Form1.LabeledEdit8.Text); // �������
+  Dc := StrToFloat(Form1.LabeledEdit5.Text) * 1000; // км в м
+  Azimc := StrToFloat(Form1.LabeledEdit6.Text); // градусы
+  Vc := StrToFloat(Form1.LabeledEdit7.Text) * 1000 / 3600; // км в час перевод в метры в сек
+  Kc := StrToFloat(Form1.LabeledEdit8.Text); // градусы
 
-  Dmax := round(StrToFloat(Form1.LabeledEdit9.Text)); // ��
-  ZonaObz := round(StrToFloat(Form1.LabeledEdit10.Text)); // �������
+  Dmax := round(StrToFloat(Form1.LabeledEdit9.Text)); // км
+  ZonaObz := round(StrToFloat(Form1.LabeledEdit10.Text)); // градусы
 
-  Tdisk := round(1 / StrToFloat(Form1.LabeledEdit11.Text) / dt); // -
-  MO := StrToFloat(Form1.LabeledEdit12.Text); // �������
-  CKO := StrToFloat(Form1.LabeledEdit13.Text); // �������
+  Tdisk := round(1 / StrToFloat(Form1.LabeledEdit11.Text) / dt);
+  MO := StrToFloat(Form1.LabeledEdit12.Text); // градусы
+  CKO := StrToFloat(Form1.LabeledEdit13.Text); // градусы
 
-  // ����� ������� + ��������� ����������
-  Ttr1 := round(StrToFloat(Form1.LabeledEdit14.Text)); // �
-  Ttr2 := round(StrToFloat(Form1.LabeledEdit15.Text)); // �
-  Ttr3 := round(StrToFloat(Form1.LabeledEdit16.Text)); // �
+  // Время маневра + Дипольные отражатели
+  Ttr1 := round(StrToFloat(Form1.LabeledEdit14.Text)); // сек
+  Ttr2 := round(StrToFloat(Form1.LabeledEdit15.Text)); // сек
+  Ttr3 := round(StrToFloat(Form1.LabeledEdit16.Text)); // сек
 
-  Trmax := Drmax * 1000 / Vrmax; // ������������ ����� ������ ������, �
+  Trmax := Drmax * 1000 / Vrmax; // Максимальное время полета ракеты, с
   nymax := nxmax;
-  if Ttr1 = 0 then
-    Ttr1 := 10000;
-  if Ttr2 = 0 then
-    Ttr2 := 10000;
-  if Ttr3 = 0 then
-    Ttr3 := 10000;
 
-
-  // Image1.Visible:=True;
+  if Ttr1 = 0 then Ttr1 := 10000;
+  if Ttr2 = 0 then Ttr2 := 10000;
+  if Ttr3 = 0 then Ttr3 := 10000;
 
   Label14.Caption := '';
+  Label1.Caption := IntToStr(Dmin) + ', км';
+  Label2.Caption := IntToStr(Dmax) + ', км';
 
-  Label1.Caption := IntToStr(Dmin) + ', ��';
-  Label2.Caption := IntToStr(Dmax) + ', ��';
-  Label4.Caption := FloatToStr(-ZonaObz / 2) + ', ����';
-  Label25.Caption := FloatToStr(ZonaObz / 2) + ', ����';
   z := 0;
-  Label19.Caption := IntToStr(z) + ', ����';
   l := round((z - ZonaObz) / 4);
-  Label18.Caption := IntToStr(l) + ' ����';
   l := round((z + ZonaObz) / 4);
-  Label22.Caption := IntToStr(l) + ' ����';
   z := round((Dmax - Dmin) / 4);
   l := Dmin;
-  Label17.Caption := IntToStr(l + z) + ', ��';
-  Label16.Caption := IntToStr(l + z * 2) + ', ��';
-  Label15.Caption := IntToStr(l + z * 3) + ', ��';
 
-  Chart1.Series[0].Clear;
-  Chart1.Series[1].Clear;
-  Chart1.Series[2].Clear;
-  Chart1.Series[3].Clear;
-  Chart1.Series[4].Clear;
-  Chart1.Series[5].Clear;
+  Label17.Caption := IntToStr(l + z) + ', км';
+  Label16.Caption := IntToStr(l + z * 2) + ', км';
+  Label15.Caption := IntToStr(l + z * 3) + ', км';
+
+  RealPictureChart.Series[0].Clear;
+  RealPictureChart.Series[1].Clear;
+  RealPictureChart.Series[2].Clear;
+  RealPictureChart.Series[3].Clear;
+  RealPictureChart.Series[4].Clear;
+  RealPictureChart.Series[5].Clear;
 
   Chart2.Series[0].Clear;
   Chart2.Series[1].Clear;
@@ -206,7 +174,7 @@ begin
   Chart3.Series[1].Clear;
   Chart3.Series[2].Clear;
 
-  With Chart1.LeftAxis do
+  With RealPictureChart.LeftAxis do
   begin
     Automatic := false;
     SetMinMax(0, Dmax);
@@ -214,7 +182,7 @@ begin
     PositionPercent := 50;
   end;
 
-  With Chart1.BottomAxis do
+  With RealPictureChart.BottomAxis do
   begin
     Automatic := false;
     SetMinMax(-(Dmax / 2), Dmax / 2);
@@ -249,32 +217,27 @@ begin
 
   for i := Dmin to Dmax + 20 do
   begin
-    Chart1.Series[1].AddXY((i) * sin(ZonaObz / 2 / 180 * pi),
-      i * cos(ZonaObz / 2 / 180 * pi));
-    Chart1.Series[2].AddXY((i) * sin(-ZonaObz / 2 / 180 * pi),
-      i * cos(-ZonaObz / 2 / 180 * pi));
+    RealPictureChart.Series[1].AddXY((i) * sin(ZonaObz / 2 / 180 * pi), i * cos(ZonaObz / 2 / 180 * pi));
+    RealPictureChart.Series[2].AddXY((i) * sin(-ZonaObz / 2 / 180 * pi), i * cos(-ZonaObz / 2 / 180 * pi));
   end;
-  z := round((Dmin) * sin(ZonaObz / 2 / 180 * pi) - (Dmin) *
-    sin(-ZonaObz / 2 / 180 * pi));
+
+  z := round((Dmin) * sin(ZonaObz / 2 / 180 * pi) - (Dmin) * sin(-ZonaObz / 2 / 180 * pi));
+
   for i := 0 to z do
-    Chart1.Series[3].AddXY(Dmin * sin(-ZonaObz / 2 / 180 * pi) + i,
-      Dmin * cos(ZonaObz / 2 / 180 * pi));
+    RealPictureChart.Series[3].AddXY(Dmin * sin(-ZonaObz / 2 / 180 * pi) + i, Dmin * cos(ZonaObz / 2 / 180 * pi));
 
   for i := 1 to N1 do
     Chart2.Series[1].AddXY(dt * i, Rv);
+
   K := Yind / Dmax;
 
+  // INIT Indicator
   IndP := TBitMap.Create;
   IndP.Transparent := True;
   IndP.loadFromFile('foundation.bmp');
   IndP.Canvas.Pen.Color := RGB(240, 240, 240);
 
-  { Boom := TBitMap.Create;
-    Boom.Transparent:=True;
-    Boom.loadFromFile('explosion.bmp') ;
-    Form1.Canvas.Draw(1096, 40, IndP); }
-
-  // ���� (��������� ���������)
+  // Цель (начальное положение)
   Xc[1] := Dc * cos(Azimc * pi / 180);
   Zc[1] := Dc * sin(Azimc * pi / 180);
   Vxc := Vc * cos(Kc * pi / 180);
@@ -282,14 +245,13 @@ begin
   Axc := 0;
   Azc := 0;
 
-  // ������ (��������� ���������)
+  // Ракета (начальное положение)
   Xr[1] := 0;
   Zr[1] := 0;
   Vr := 0;
   Kr := 0;
   Vxr := 0;
   Vzr := 0;
-
   tr := 0;
   st := 0;
   PrSopr := false;
@@ -303,13 +265,9 @@ begin
   Drc[1] := Dc;
   DrcMin := 1000000;
 
-
-  // --------------------------------------------------------------------------
-
   for i := 2 to N1 do
   begin
-
-    // ��������� dt
+    // Изменение dt
     if Drc[i - 1] < 500 then
       dt := 0.001
     else if (Drc[i - 1] < 2000) { or (t<Tpoisk) }
@@ -319,33 +277,31 @@ begin
       dt := 0.1;
     dtt[i] := dt;
 
-    st := st + dt * 100; // ������� �����
+    st := st + dt * 100; // Текущее время
     t := st / 100;
     TrackBar2.Position := trunc(st / 10 / Trmax);
 
-    // �������� ����
+    // Движение цели
     Xc[i] := Xc[i - 1] + Vxc * dt;
     Zc[i] := Zc[i - 1] + Vzc * dt;
 
-    // �������� ������
+    // Движение ракеты
     Xr[i] := Xr[i - 1] + Vxr * dt;
     Zr[i] := Zr[i - 1] + Vzr * dt;
 
-    // �������� ��������
-    Drc[i] := sqrt((Xr[i] - Xc[i]) * (Xr[i] - Xc[i]) + (Zr[i] - Zc[i]) *
-      (Zr[i] - Zc[i])); // ���������
-    Prc[i] := MyArcTan(Zc[i] - Zr[i], Xc[i] - Xr[i]); // ������
+    // Истинные значения
+    Drc[i] := sqrt((Xr[i] - Xc[i]) * (Xr[i] - Xc[i]) + (Zr[i] - Zc[i]) * (Zr[i] - Zc[i])); // Дальность
+    Prc[i] := MyArcTan(Zc[i] - Zr[i], Xc[i] - Xr[i]); // Пеленг
     if Prc[i] > +pi then
       Prc[i] := Prc[i] - 2 * pi;
     if Prc[i] < -pi then
       Prc[i] := Prc[i] + 2 * pi;
 
-    // ������ ������ ��������� �����������
+    // Выброс облака дипольных отражателей
     Trap[i] := false;
     if CheckBox2.checked = false then
     begin
-      PrcIzm[i] := RandG(Prc[i], CKO * pi / 180) + MO * pi / 180;
-      // ��������� ������� � (��������)
+      PrcIzm[i] := RandG(Prc[i], CKO * pi / 180) + MO * pi / 180; // Изменение пеленга с ошибками
     end
     else
     begin
@@ -358,8 +314,7 @@ begin
           if z > lifetime then
             z := lifetime - 1
         end;
-        PrcIzm[i] := RandG(Prc[itr1], CKO * pi / 180) + MO * pi / 180;
-        // ��������� �� ��
+        PrcIzm[i] := RandG(Prc[itr1], CKO * pi / 180) + MO * pi / 180; // ИЗменение на ДО
         Trap[i] := True;
       end
       else if (trunc(t) >= Ttr2) and (trunc(t) < (Ttr2 + lifetime)) then
@@ -371,8 +326,7 @@ begin
           if z > lifetime then
             z := lifetime - 1
         end;
-        PrcIzm[i] := RandG(Prc[itr2], CKO * pi / 180) + MO * pi / 180;
-        // ��������� �� ��
+        PrcIzm[i] := RandG(Prc[itr2], CKO * pi / 180) + MO * pi / 180; // ИЗменение на ДО
         Trap[i] := True;
       end
       else if (trunc(t) >= Ttr3) and (trunc(t) < (Ttr3 + lifetime)) then
@@ -384,35 +338,22 @@ begin
           if z > lifetime then
             z := lifetime - 1
         end;
-        PrcIzm[i] := RandG(Prc[itr3], CKO * pi / 180) + MO * pi / 180;
-        // ��������� �� ��
+        PrcIzm[i] := RandG(Prc[itr3], CKO * pi / 180) + MO * pi / 180; // ИЗменение на ДО
         Trap[i] := True;
       end
       else
-        PrcIzm[i] := RandG(Prc[i], CKO * pi / 180) + MO * pi / 180;
-      // ��������� ������� � (��������)
+        PrcIzm[i] := RandG(Prc[i], CKO * pi / 180) + MO * pi / 180; // ИЗменение пеленга с (ошибками)
     end;
 
-    // ���� ������� ���������� �������������� ����������
+    // Учет частоты обновления изметрительной информации
     if (PrSopr = True) and (t > Tstart) then
     begin
       if trunc(st / 10) mod Tdisk = 0 then
         tdiskr := i;
-      // Kr:=PrcIzm[tdiskr]+ARCSIN(Vc/Vrmax*sin(Kc-PrcIzm[tdiskr]))
       Kr := PrcIzm[tdiskr]
     end;
 
-    {
-      // ������ ������� ��������
-      if random <0.005 then
-      Prc[i]:=(random*360)*pi/180;
-      // ������ ����������� ����������
-      if random<0.05 then
-      Prc[i]:=Prc[i-1]; }
-    // ������� ��������� ������
-    // Kr:=PrcIzm[i];
-
-    // ���� ���� �������������, �� � ����� - ��������
+    // Если срыв совпровождения, то в поиск - крутимся
     if dt = 0.01 then
       Wr := 0.3
     else if dt = 0.1 then
@@ -422,12 +363,11 @@ begin
     if (CheckBox3.checked = True) and (PrSopr = false) and (t > Tpoisk) then
       Kr := Kr + Wr * pi / 180 * dt;
 
-    // ��������� ��������� ������ (��� ������� ����������)
+    // Требуемое ускорение ракеты (для расчета перегрузок)
     Axr := (Vrmax * cos(Kr) - Vxr);
     Azr := (Vrmax * sin(Kr) - Vzr);
 
-    // ����������� �� ������������ ����������
-
+    // Ограничение на максимальные перегрузки
     if t > Tstart then
     begin
       if Axr > nxmax * g then
@@ -440,7 +380,7 @@ begin
         Azr := -nymax * g;
     end;
 
-    // ��������� �������� ������
+    // Требуемая скорость ракеты
     Vxr := Vxr + Axr * dt;
     Vzr := Vzr + Azr * dt;
     Kr := MyArcTan(Vzr, Vxr);
@@ -449,7 +389,7 @@ begin
     if Kr < -pi then
       Kr := Kr + 2 * pi;
 
-    // �������� ������� �������������
+    // Проверка условия сопровождения
     if t > Tpoisk then
     begin
       if abs((Prc[i] - Kr) * 180 / pi) < 30 then
@@ -485,7 +425,7 @@ begin
       end;
     end;
 
-    // ��������� ���� (�������������� ����)
+    // Ускорения цели (маневрирования цели)
     if dt = 0.01 then
       Wkc := 0.3
     else if dt = 0.1 then
@@ -502,19 +442,18 @@ begin
     Vxc := Vc * cos(Kc * pi / 180);
     Vzc := Vc * sin(Kc * pi / 180);
 
-    // �������� ������� ���������� ������ (������ ��)
+    // Проверка условия выполнения задачи (подрыва БЧ)
     if (t > 1) and (Drc[i] < 1000) and (Drc[i] < Rv) then
       Explosion[i] := True
     else
-      Explosion[i] := false;;
+      Explosion[i] := false;
 
     if (Drc[i] < DrcMin) then
       DrcMin := Drc[i];
 
-
     // -----------------------------------------------------------------------------
 
-    // ��������������� ��������
+    // Масштабирование графиков
     if Drc[i] < 10000 then
       With Chart2.LeftAxis do
       begin
@@ -555,50 +494,43 @@ begin
 
     if stop = True then
       break;
+
     IndP.loadFromFile('foundation.bmp');
 
-    Label24.Caption := FloatToStr(dt) + ' �';
-    Label13.Caption := FloatToStr(trunc(st / 100)) + ' �';
-    // Label7.Caption :='�� ���� �������� ';
-    Label30.Caption := FloatToStr(trunc(Drc[i])) + ' �';
-    Label8.Caption := '������� �� ' + FloatToStr(trunc(Trmax - st / 100)) +
-      ' � ������';
-    Label31.Caption := '�� ' + FloatToStr(trunc(Trmax)) + ' �';
-    Label32.Caption := '������ ' + FloatToStr(trunc(DrcMin)) + ' �';
+    // ПАНЕЛЬ УПРАВЛЕНИЯ
+    Label24.Caption := FloatToStr(dt) + ' с';
+    Label13.Caption := FloatToStr(trunc(st / 100)) + ' с';
+    Label30.Caption := FloatToStr(trunc(Drc[i])) + ' с';
+    Label8.Caption  := 'Топлива на ' + FloatToStr(trunc(Trmax-st/100)) + ' с полета';
+    Label31.Caption := 'из ' + FloatToStr(trunc(Trmax)) + ' с';
+    Label32.Caption := 'Промах ' + FloatToStr(trunc(DrcMin)) + ' м';
 
-    DrawTarget(false, Xc[i] / 1000, Zc[i] / 1000, K, IndP, Dmax, Dmin,
-      round(ZonaObz / 2), -round(ZonaObz / 2)); { ��������� ���� }
-    DrawTarget(True, Xr[i] / 1000, Zr[i] / 1000, K, IndP, Dmax, Dmin,
-      round(ZonaObz / 2), -round(ZonaObz / 2)); { ��������� � }
+    DrawTarget(False, Xc[i] / 1000, Zc[i] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2)); { Отрисовка цели }
+    DrawTarget(True, Xr[i] / 1000, Zr[i] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2)); { Отрисовка ракеты }
 
     if (Trap[i] = True) and (CheckBox2.checked = True) then
     begin
       if (trunc(t) >= Ttr1) then
-        DrawTrap(Xc[itr1] / 1000, Zc[itr1] / 1000, K, IndP, Dmax, Dmin,
-          round(ZonaObz / 2), -round(ZonaObz / 2), lifetime, Ttr1);
+        DrawTrap(Xc[itr1] / 1000, Zc[itr1] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2), lifetime, Ttr1);
       if (trunc(t) >= Ttr2) then
-        DrawTrap(Xc[itr2] / 1000, Zc[itr2] / 1000, K, IndP, Dmax, Dmin,
-          round(ZonaObz / 2), -round(ZonaObz / 2), lifetime, Ttr2);
+        DrawTrap(Xc[itr2] / 1000, Zc[itr2] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2), lifetime, Ttr2);
       if (trunc(t) >= Ttr3) then
-        DrawTrap(Xc[itr3] / 1000, Zc[itr3] / 1000, K, IndP, Dmax, Dmin,
-          round(ZonaObz / 2), -round(ZonaObz / 2), lifetime, Ttr3);
+        DrawTrap(Xc[itr3] / 1000, Zc[itr3] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2), lifetime, Ttr3);
     end;
 
-    Form1.Canvas.Draw(1096, 40, IndP); { ��������� ���������� }
+    // ИНДИКАТОР
+    Form1.Canvas.Draw(1096, 40, IndP); { Отрисовка индикатора }
 
-    Chart1.Series[0].AddXY(Zc[i] / 1000, Xc[i] / 1000);
-    Chart1.Series[4].AddXY(Zr[i] / 1000, Xr[i] / 1000);
+    RealPictureChart.Series[0].AddXY(Zc[i] / 1000, Xc[i] / 1000);
+    RealPictureChart.Series[4].AddXY(Zr[i] / 1000, Xr[i] / 1000);
 
     Chart2.Series[0].AddXY(st / 100, Drc[i]);
 
-    // Chart3.Series[0].AddXY(st/100,(PrcIzm[i]-0*Myarctan(Vzr,Vxr))*180/pi);
     Chart3.Series[0].AddXY(st / 100, (PrcIzm[i] - Prc[i]) * 180 / pi);
     Chart3.Series[2].AddXY(st / 100, (Kr - Prc[i]) * 180 / pi);
     Chart3.Series[1].AddXY(st / 100, 0);
-    // Chart3.Series[0].AddXY(st/100,30);
 
-    Form1.Canvas.Draw(850, round(650), Boom);
-
+    // TODO: Выделить взрыв в функцию
     if Explosion[i] = True then
     begin
       for j := 1 to 100 do
@@ -607,68 +539,65 @@ begin
         fi := 2 * pi * random;
         xx := round(r * cos(fi));
         yy := round(r * sin(fi));
-        Chart1.Series[5].AddXY((Zc[i] + yy) / 1000, (Xc[i] + xx) / 1000);
+        RealPictureChart.Series[5].AddXY((Zc[i] + yy) / 1000, (Xc[i] + xx) / 1000);
       end;
+
       Label14.Caption := '';
       Label14.Font.Color := clRed;
-      Label14.Caption := '���� ����������';
+      Label14.Caption := 'Цель уничтожена';
       Exit
-      // break;
     end;
 
     if (Trmax - st / 100) <= 0 then
     begin
       Label14.Caption := '';
       Label14.Font.Color := clRed;
-      Label14.Caption := '������ �������������������';
+      Label14.Caption := 'Ракета самоликвидировалась';
       for j := 1 to 100 do
       begin
         r := 300 * sqrt(-2 * Ln(random));
         fi := 2 * pi * random;
         xx := round(r * cos(fi));
         yy := round(r * sin(fi));
-        Chart1.Series[5].AddXY((Zr[i] + yy) / 1000, (Xr[i] + xx) / 1000);
+        RealPictureChart.Series[5].AddXY((Zr[i] + yy) / 1000, (Xr[i] + xx) / 1000);
       end;
-      // break;
       Exit
     end;
 
+    // СОВПРОВОЖДЕНИЕ ЦЕЛИ
     if (st / 100 > Tpoisk) and (PrSopr = True) then
     begin
-      Label14.Caption := '';
       Label14.Font.Color := clGreen;
-      Label14.Caption := '������������� ����';
+      Label14.Caption := 'Сопровождение цели';
     end
     else
     begin
       Label14.Font.Color := clPurple;
       if (CheckBox3.checked = True) then
-        Label14.Caption := '���� �������������, �����'
+        Label14.Caption := 'срыв сопровождения, поиск'
       else
-        Label14.Caption := '���� �������������';
+        Label14.Caption := 'срыв сопровождения';
     end;
 
     if PrSoprLT then
     begin
       Label14.Font.Color := clRed;
-      Label14.Caption := '';
-      Label14.Caption := '������������� ������ ����';
+      Label14.Caption := 'Сопровождение ложной цели';
     end;
 
     if (st / 100) <= Tstart then
     begin
       Label14.Font.Color := clBlue;
-      Label14.Caption := '';
-      Label14.Caption := '����� ������';
+      Label14.Caption := 'Старт ракеты';
     end;
 
     if (st / 100 > Tstart) and (st / 100 <= Tpoisk) then
     begin
-      Label14.Caption := '';
       Label14.Font.Color := clNavy;
-      Label14.Caption := '����� ����';
+      Label14.Caption := 'Поиск цели';
     end;
 
+    // TODO: Это что
     if CheckBox1.checked = false then
       Sleep(500 - TrackBar1.Position * 55);
 
@@ -676,19 +605,19 @@ begin
   end;
 
   IndP.Free;
-  Boom.Free;
+
   if ((Trmax - st / 100) <= 0) or Explosion[i] then
     stop := True;
 
 end;
 
+// COMMAND STOP
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   stop := True;
 end;
 
-Procedure DrawTrap(Xtarget, Ztarget, K: real; bm1: TBitMap;
-  D_max, D_min, Alfa_max, Alfa_min, lifetime, tr: Integer);
+Procedure DrawTrap(Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min, lifetime, tr: Integer);
 var
   Bm: TBitMap;
   Schetchik, j, CentreX, CentreY, lt2, xx, yy: Integer;
@@ -746,20 +675,6 @@ begin
 
   bm1.Canvas.Pen.Width := 1;
 
-  { if (round(t)>=Ttr1) and (round(t)<=(Ttr1+Lifetime))
-    then
-    begin Trap[i]:=True; tr:=Ttr1 end
-    else
-    if (round(t)>=Ttr2) and (round(t)<=(Ttr2+Lifetime))
-    then
-    begin Trap[i]:=True; tr:=Ttr2 end
-    else
-    if (round(t)>=Ttr3) and (round(t)<=(Ttr3+Lifetime))
-    then
-    begin Trap[i]:=True; tr:=Ttr3 end
-    else Trap[i]:=False;
-  }
-
   jj := round(100 * (1 - (t - tr) / lifetime));
   for j := 1 to jj do
   begin
@@ -767,15 +682,13 @@ begin
     fi := 2 * pi * random;
     xx := round(CentreX + r * cos(fi));
     yy := round(CentreY + 25 / 40 * r * sin(fi));
-    bm1.Canvas.Arc(xx - 15, yy - 5, xx + 15, yy + 5, xx + 15, yy - 5,
-      xx - 15, yy - 5);
+    bm1.Canvas.Arc(xx - 15, yy - 5, xx + 15, yy + 5, xx + 15, yy - 5, xx - 15, yy - 5);
   end;
-  Bm.Free;
 
+  Bm.Free;
 end;
 
-Procedure DrawTarget(PrR: boolean; Xtarget, Ztarget, K: real; bm1: TBitMap;
-  D_max, D_min, Alfa_max, Alfa_min: Integer);
+Procedure DrawTarget(PrR: boolean; Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min: Integer);
 var
   Bm: TBitMap;
   Schetchik, j, CentreX, CentreY: Integer;
@@ -826,28 +739,21 @@ begin
   AlphaInd := (AlphaReal - Alfa_min) * K2;
 
   CentreX := round(Xind / 2) - (Schetchik * 2 - round(AlphaInd)) + Schetchik;
-  if ((CentreX) < (round(Xind / 2) - Schetchik)) or
-    ((CentreX) > (round(Xind / 2) + Schetchik)) then
+  if ((CentreX) < (round(Xind / 2) - Schetchik)) or ((CentreX) > (round(Xind / 2) + Schetchik)) then
     Exit;
   CentreY := Yind - round(Dind);
 
   bm1.Canvas.Pen.Width := 1;
-  bm1.Canvas.Arc(CentreX - 15, CentreY - 5, CentreX + 15, CentreY + 5,
-    CentreX + 15, CentreY - 5, CentreX - 15, CentreY - 5);
+  bm1.Canvas.Arc(CentreX - 15, CentreY - 5, CentreX + 15, CentreY + 5, CentreX + 15, CentreY - 5, CentreX - 15, CentreY - 5);
   bm1.Canvas.Pen.Color := RGB(140, 140, 140);
-  bm1.Canvas.Pen.Width := 1;
 
-  if ((CentreX) < (round(Xind / 2) - Schetchik + 20)) or
-    ((CentreX) > (round(Xind / 2) + Schetchik - 20)) then
+  if ((CentreX) < (round(Xind / 2) - Schetchik + 20)) or ((CentreX) > (round(Xind / 2) + Schetchik - 20)) then
     Exit;
-  if (PrR = false) and (t > 10) and (PrSopr = True) and (PrSoprLT = false) and
-    (i mod 2 = 0) then
+  if (PrR = false) and (t > 10) and (PrSopr = True) and (PrSoprLT = false) and (i mod 2 = 0) then
     if PrSopr then
-      bm1.Canvas.Rectangle(CentreX - 20, CentreY - 20, CentreX + 20,
-        CentreY + 20);
+      bm1.Canvas.Rectangle(CentreX - 20, CentreY - 20, CentreX + 20, CentreY + 20);
 
   Bm.Free;
-
 end;
 
 end.

@@ -1,9 +1,9 @@
 ﻿object Form1: TForm1
-  Left = -8
-  Top = -8
+  Left = 0
+  Top = 0
   Caption = #1051#1072#1073#1086#1088#1072#1090#1086#1088#1085#1072#1103' '#1088#1072#1073#1086#1090#1072' '#8470'4-1 '#1057#1072#1084#1086#1085#1072#1074#1077#1076#1077#1085#1080#1077' '#1051#1040' '#1085#1072' '#1094#1077#1083#1100
   ClientHeight = 1005
-  ClientWidth = 1924
+  ClientWidth = 1780
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clTeal
@@ -11,6 +11,7 @@
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesigned
   PixelsPerInch = 120
   TextHeight = 29
   object Label28: TLabel
@@ -22,48 +23,6 @@
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clNavy
     Font.Height = -37
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
-  end
-  object Label4: TLabel
-    Left = 1072
-    Top = 32
-    Width = 73
-    Height = 29
-    Caption = 'Label4'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlue
-    Font.Height = -25
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
-  end
-  object Label18: TLabel
-    Left = 1255
-    Top = 8
-    Width = 86
-    Height = 29
-    Caption = 'Label18'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlue
-    Font.Height = -25
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
-  end
-  object Label19: TLabel
-    Left = 1457
-    Top = 1
-    Width = 86
-    Height = 29
-    Caption = 'Label19'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlue
-    Font.Height = -25
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
@@ -149,32 +108,6 @@
     Font.Style = []
     ParentFont = False
   end
-  object Label22: TLabel
-    Left = 1648
-    Top = 8
-    Width = 86
-    Height = 29
-    Caption = 'Label22'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlue
-    Font.Height = -25
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label25: TLabel
-    Left = 1830
-    Top = 22
-    Width = 86
-    Height = 29
-    Caption = 'Label25'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlue
-    Font.Height = -25
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-  end
   object Label27: TLabel
     Left = 725
     Top = 598
@@ -182,7 +115,7 @@
     Height = 29
     Caption = #1048#1047#1052#1045#1056#1045#1053#1048#1071
   end
-  object Chart1: TChart
+  object RealPictureChart: TChart
     Left = 8
     Top = 45
     Width = 979
@@ -908,7 +841,7 @@
     TabOrder = 3
   end
   object Chart3: TChart
-    Left = 927
+    Left = 926
     Top = 863
     Width = 972
     Height = 123
