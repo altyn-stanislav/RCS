@@ -41,12 +41,6 @@ type
     Series5: TLineSeries;
     Series6: TPointSeries;
     Series7: TLineSeries;
-    Label20: TLabel;
-    Label2: TLabel;
-    Label15: TLabel;
-    Label16: TLabel;
-    Label17: TLabel;
-    Label1: TLabel;
     Label7: TLabel;
 
     LabeledEdit2: TLabeledEdit;
@@ -147,8 +141,6 @@ begin
   if Ttr3 = 0 then Ttr3 := 10000;
 
   Label14.Caption := '';
-  Label1.Caption := IntToStr(Dmin) + ', км';
-  Label2.Caption := IntToStr(Dmax) + ', км';
 
   z := 0;
   l := round((z - ZonaObz) / 4);
@@ -156,9 +148,7 @@ begin
   z := round((Dmax - Dmin) / 4);
   l := Dmin;
 
-  Label17.Caption := IntToStr(l + z) + ', км';
-  Label16.Caption := IntToStr(l + z * 2) + ', км';
-  Label15.Caption := IntToStr(l + z * 3) + ', км';
+
 
   RealPictureChart.Series[0].Clear;
   RealPictureChart.Series[1].Clear;
