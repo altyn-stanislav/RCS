@@ -1,0 +1,79 @@
+object DistanceToTargetForm: TDistanceToTargetForm
+  Left = 0
+  Top = 0
+  Width = 645
+  Height = 178
+  AutoScroll = True
+  BorderIcons = []
+  Caption = #1044#1072#1083#1100#1085#1086#1089#1090#1100' '#1076#1086' '#1094#1077#1083#1080
+  Color = clBtnFace
+  Constraints.MinHeight = 100
+  Constraints.MinWidth = 100
+  DragKind = dkDock
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object DistanceToTargetChart: TChart
+    Left = 0
+    Top = 0
+    Width = 629
+    Height = 139
+    BackWall.Brush.Style = bsClear
+    Legend.Visible = False
+    MarginBottom = 0
+    MarginLeft = 0
+    MarginRight = 0
+    MarginTop = 5
+    Title.Brush.Style = bsClear
+    Title.Font.Height = -19
+    Title.Text.Strings = (
+      #1069#1055#1056' '#1094#1077#1083#1077#1081)
+    Title.Visible = False
+    BottomAxis.Increment = 1.000000000000000000
+    LeftAxis.ExactDateTime = False
+    LeftAxis.Grid.Visible = False
+    View3D = False
+    Align = alClient
+    TabOrder = 0
+    ExplicitLeft = -372
+    ExplicitTop = 77
+    ExplicitWidth = 972
+    ExplicitHeight = 123
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 13
+    object LineSeries1: TLineSeries
+      SeriesColor = clBlue
+      Title = #1044#1072#1083#1100#1085#1086#1089#1090#1100' '#1076#1086' '#1094#1077#1083#1080
+      Brush.Style = bsClear
+      Brush.BackColor = clDefault
+      LineBrush = bsClear
+      LinePen.Color = clRed
+      LinePen.Visible = False
+      Pointer.HorizSize = 2
+      Pointer.InflateMargins = False
+      Pointer.Style = psRectangle
+      Pointer.VertSize = 2
+      Pointer.Visible = True
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+    object Series1: TLineSeries
+      Title = #1056#1042
+      Brush.BackColor = clDefault
+      LinePen.Color = clGreen
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+end
