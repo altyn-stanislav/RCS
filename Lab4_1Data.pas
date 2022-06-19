@@ -20,7 +20,8 @@ type
 var
 
   dt, // Интервал дискретизации по времени
-  t: real; // Время
+  t
+    : real; // Время
   i: integer; // Переменная цикла по времени
 
   Drc, // Дальность до цели
@@ -32,7 +33,9 @@ var
   Xc, // Координаты цели
   Zc, // Координаты цели
 
-  DropTr, hh, dtt
+  DropTr,
+  hh,
+  dtt
     : Tarray;
 
   Wr,
@@ -56,29 +59,37 @@ var
   Vzc, // Проекция скорости цели на ось Z
 
   Wkc,
-  Trmax,
+  Trmax, // Топливо всего
   Drmax,
   Vrmax,
   nxmax,
   nymax,
   Rv,
-  MO,
+  MO, // Мат. ожидание
   CKO,
-  DrcMin,
+  DrcMin, // Промах
   a,
   b,
   c,
   s,
   h,
-  p: real;
-  K, st, sst: real;
+  p
+    : real;
+  K,
+  st, // Текущее время
+  sst
+    : real;
   Ttr1, // Время выброса первого облака дипольных отражателей
   Ttr2, // Время выброса второго облака дипольных отражателей
   Ttr3, // Время выброса третьего облака дипольных отражателей
   Lifetime, // Время жизни облака дипольных отражателей
-  tr, Tdisk, Dmax, ZonaObz: integer;
+  tr,
+  Tdisk,
+  Dmax, // Макс. Дальность
+  ZonaObz // Зона обзора
+    : integer;
 
-  Explosion, // ПРизнак подрыва БЧ
+  Explosion, // Признак подрыва БЧ
   Trap // Признак работы ловушки
     : array [1 .. N1] of Boolean;
 

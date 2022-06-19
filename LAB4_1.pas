@@ -12,28 +12,25 @@ uses
 type
   TForm1 = class(TForm)
     RealPictureChart: TChart;
-    Button1: TButton;
-    Button2: TButton;
-    Label10: TLabel;
-    Label11: TLabel;
-    TrackBar1: TTrackBar;
-    Panel1: TPanel;
+    StartButton: TButton;
+    StopButton: TButton;
+    axisZ: TLabel;
+    axisX: TLabel;
+    SimulationSpeedBar: TTrackBar;
     Panel2: TPanel;
-    Label13: TLabel;
+    StLabel: TLabel;
     Panel3: TPanel;
-    Label3: TLabel;
-    Label8: TLabel;
-    Label23: TLabel;
-    Label24: TLabel;
+    SimulationSpeedLabel: TLabel;
+    TrmaxLabel: TLabel;
+    dtLabel: TLabel;
     Series2: TPointSeries;
     Series3: TLineSeries;
     Series4: TLineSeries;
-    Label28: TLabel;
-    CheckBox1: TCheckBox;
-    Label29: TLabel;
-    Chart2: TChart;
+    TitleLabel: TLabel;
+    SimulationSpeedCheckbox: TCheckBox;
+    DistanceToTargetChart: TChart;
     Label5: TLabel;
-    Chart3: TChart;
+    BearingChart: TChart;
     Label6: TLabel;
     LineSeries1: TLineSeries;
     Series1: TLineSeries;
@@ -41,41 +38,37 @@ type
     Series5: TLineSeries;
     Series6: TPointSeries;
     Series7: TLineSeries;
-    Label7: TLabel;
-
-    LabeledEdit2: TLabeledEdit;
-    LabeledEdit3: TLabeledEdit;
-    LabeledEdit4: TLabeledEdit;
-    LabeledEdit5: TLabeledEdit;
-    LabeledEdit1: TLabeledEdit;
-    LabeledEdit6: TLabeledEdit;
-    LabeledEdit7: TLabeledEdit;
-    LabeledEdit8: TLabeledEdit;
-    Label9: TLabel;
-    Label14: TLabel;
+    VrmaxControl: TLabeledEdit;
+    NxmaxControl: TLabeledEdit;
+    RvControl: TLabeledEdit;
+    DcControl: TLabeledEdit;
+    DrmaxControl: TLabeledEdit;
+    AzimcControl: TLabeledEdit;
+    VcControl: TLabeledEdit;
+    KcControl: TLabeledEdit;
+    TargetLabel: TLabel;
+    StatusLabel: TLabel;
     TrackBar2: TTrackBar;
-    Label21: TLabel;
-    LabeledEdit9: TLabeledEdit;
-    LabeledEdit10: TLabeledEdit;
-    Label26: TLabel;
-    Label27: TLabel;
-    LabeledEdit11: TLabeledEdit;
-    LabeledEdit12: TLabeledEdit;
-    LabeledEdit13: TLabeledEdit;
-    LabeledEdit14: TLabeledEdit;
-    LabeledEdit15: TLabeledEdit;
-    LabeledEdit16: TLabeledEdit;
+    CommonLabel: TLabel;
+    DmaxControl: TLabeledEdit;
+    ZonaObzControl: TLabeledEdit;
+    MeasurementErrorLabel: TLabel;
+    TdiskControl: TLabeledEdit;
+    MoControl: TLabeledEdit;
+    CKOControl: TLabeledEdit;
+    Ttr1Control: TLabeledEdit;
+    Ttr2Control: TLabeledEdit;
+    Ttr3Control: TLabeledEdit;
     CheckBox2: TCheckBox;
     Series8: TPointSeries;
     Series9: TLineSeries;
     Panel5: TPanel;
-    CheckBox3: TCheckBox;
+    SearchModeAfterTrackingFailureControl: TCheckBox;
     Label12: TLabel;
-    Label30: TLabel;
-    Label31: TLabel;
-    Label32: TLabel;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    DrcLabel: TLabel;
+    DrcMinLabel: TLabel;
+    procedure StartButtonClick(Sender: TObject);
+    procedure StopButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -94,7 +87,7 @@ implementation
 {$R *.dfm}
 
 // COMMAND START
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.StartButtonClick(Sender: TObject);
 var
   IndP: TBitMap;
   z, l, tr, tdiskr, Tstart, Tpoisk, itr, itr1, itr2, itr3: Integer;
@@ -111,27 +104,27 @@ begin
   Tstart := 3;
   Tpoisk := 5;
 
-  Drmax := StrToFloat(Form1.LabeledEdit1.Text);
-  Vrmax := StrToFloat(Form1.LabeledEdit2.Text) * 1000 / 3600; // км в час перевод в метры в сек
-  nxmax := StrToFloat(Form1.LabeledEdit3.Text);
-  Rv := StrToFloat(Form1.LabeledEdit4.Text);
+  Drmax := StrToFloat(Form1.DrmaxControl.Text);
+  Vrmax := StrToFloat(Form1.VrmaxControl.Text) * 1000 / 3600; // км в час перевод в метры в сек
+  Nxmax := StrToFloat(Form1.NxmaxControl.Text);
+  Rv    := StrToFloat(Form1.RvControl.Text);
 
-  Dc := StrToFloat(Form1.LabeledEdit5.Text) * 1000; // км в м
-  Azimc := StrToFloat(Form1.LabeledEdit6.Text); // градусы
-  Vc := StrToFloat(Form1.LabeledEdit7.Text) * 1000 / 3600; // км в час перевод в метры в сек
-  Kc := StrToFloat(Form1.LabeledEdit8.Text); // градусы
+  Dc    := StrToFloat(Form1.DcControl.Text) * 1000; // км в м
+  Azimc := StrToFloat(Form1.AzimcControl.Text); // градусы
+  Vc    := StrToFloat(Form1.VcControl.Text) * 1000 / 3600; // км в час перевод в метры в сек
+  Kc    := StrToFloat(Form1.KcControl.Text); // градусы
 
-  Dmax := round(StrToFloat(Form1.LabeledEdit9.Text)); // км
-  ZonaObz := round(StrToFloat(Form1.LabeledEdit10.Text)); // градусы
+  Dmax := round(StrToFloat(Form1.DmaxControl.Text)); // км
+  ZonaObz := round(StrToFloat(Form1.ZonaObzControl.Text)); // градусы
 
-  Tdisk := round(1 / StrToFloat(Form1.LabeledEdit11.Text) / dt);
-  MO := StrToFloat(Form1.LabeledEdit12.Text); // градусы
-  CKO := StrToFloat(Form1.LabeledEdit13.Text); // градусы
+  Tdisk := round(1 / StrToFloat(Form1.TdiskControl.Text) / dt);
+  MO := StrToFloat(Form1.MoControl.Text); // градусы
+  CKO := StrToFloat(Form1.CKOControl.Text); // градусы
 
   // Время маневра + Дипольные отражатели
-  Ttr1 := round(StrToFloat(Form1.LabeledEdit14.Text)); // сек
-  Ttr2 := round(StrToFloat(Form1.LabeledEdit15.Text)); // сек
-  Ttr3 := round(StrToFloat(Form1.LabeledEdit16.Text)); // сек
+  Ttr1 := round(StrToFloat(Form1.Ttr1Control.Text)); // сек
+  Ttr2 := round(StrToFloat(Form1.Ttr2Control.Text)); // сек
+  Ttr3 := round(StrToFloat(Form1.Ttr3Control.Text)); // сек
 
   Trmax := Drmax * 1000 / Vrmax; // Максимальное время полета ракеты, с
   nymax := nxmax;
@@ -140,7 +133,7 @@ begin
   if Ttr2 = 0 then Ttr2 := 10000;
   if Ttr3 = 0 then Ttr3 := 10000;
 
-  Label14.Caption := '';
+  StatusLabel.Caption := '';
 
   z := 0;
   l := round((z - ZonaObz) / 4);
@@ -157,12 +150,12 @@ begin
   RealPictureChart.Series[4].Clear;
   RealPictureChart.Series[5].Clear;
 
-  Chart2.Series[0].Clear;
-  Chart2.Series[1].Clear;
+  DistanceToTargetChart.Series[0].Clear;
+  DistanceToTargetChart.Series[1].Clear;
 
-  Chart3.Series[0].Clear;
-  Chart3.Series[1].Clear;
-  Chart3.Series[2].Clear;
+  BearingChart.Series[0].Clear;
+  BearingChart.Series[1].Clear;
+  BearingChart.Series[2].Clear;
 
   With RealPictureChart.LeftAxis do
   begin
@@ -179,26 +172,26 @@ begin
     Increment := 1.0;
   end;
 
-  With Chart2.BottomAxis do
+  With DistanceToTargetChart.BottomAxis do
   begin
     Automatic := false;
     SetMinMax(0, Trmax);
   end;
 
-  With Chart2.LeftAxis do
+  With DistanceToTargetChart.LeftAxis do
   begin
     Automatic := false;
     SetMinMax(0, Dc);
     Increment := 1.0;
   end;
 
-  With Chart3.BottomAxis do
+  With BearingChart.BottomAxis do
   begin
     Automatic := false;
     SetMinMax(0, Trmax);
   end;
 
-  With Chart3.LeftAxis do
+  With BearingChart.LeftAxis do
   begin
     Automatic := false;
     SetMinMax(-5, 5);
@@ -217,7 +210,7 @@ begin
     RealPictureChart.Series[3].AddXY(Dmin * sin(-ZonaObz / 2 / 180 * pi) + i, Dmin * cos(ZonaObz / 2 / 180 * pi));
 
   for i := 1 to N1 do
-    Chart2.Series[1].AddXY(dt * i, Rv);
+    DistanceToTargetChart.Series[1].AddXY(dt * i, Rv);
 
   K := Yind / Dmax;
 
@@ -350,7 +343,7 @@ begin
       Wr := 3
     else
       Wr := 30;
-    if (CheckBox3.checked = True) and (PrSopr = false) and (t > Tpoisk) then
+    if (SearchModeAfterTrackingFailureControl.checked = True) and (PrSopr = false) and (t > Tpoisk) then
       Kr := Kr + Wr * pi / 180 * dt;
 
     // Требуемое ускорение ракеты (для расчета перегрузок)
@@ -405,7 +398,8 @@ begin
         if (t < (tr + z - 1)) and (abs((Prc[itr] - Kr) * 180 / pi) < 30) then
         begin
           PrSoprLT := True;
-          { if CheckBox3.checked then } PrSopr := True
+          { if SearchModeAfterTrackingFailureControl.checked then }
+          PrSopr := True
         end
         else
         begin
@@ -445,21 +439,21 @@ begin
 
     // Масштабирование графиков
     if Drc[i] < 10000 then
-      With Chart2.LeftAxis do
+      With DistanceToTargetChart.LeftAxis do
       begin
         Automatic := false;
         SetMinMax(0, 10000);
         Increment := 1000.0;
       end;
     if Drc[i] < 1000 then
-      With Chart2.LeftAxis do
+      With DistanceToTargetChart.LeftAxis do
       begin
         Automatic := false;
         SetMinMax(0, 1000);
         Increment := 100.0;
       end;
     if Drc[i] < 100 then
-      With Chart2.LeftAxis do
+      With DistanceToTargetChart.LeftAxis do
       begin
         Automatic := false;
         SetMinMax(0, 100);
@@ -468,14 +462,14 @@ begin
 
     if (abs((PrcIzm[i] - Prc[i]) * 180 / pi) < 5) and
       (abs((Kr - Prc[i]) * 180 / pi) < 5) then
-      With Chart3.LeftAxis do
+      With BearingChart.LeftAxis do
       begin
         Automatic := false;
         SetMinMax(-5, +5);
         Increment := 1.0;
       end
     else
-      With Chart3.LeftAxis do
+      With BearingChart.LeftAxis do
       begin
         Automatic := false;
         SetMinMax(-20, +20);
@@ -488,12 +482,11 @@ begin
     IndP.loadFromFile('foundation.bmp');
 
     // ПАНЕЛЬ УПРАВЛЕНИЯ
-    Label24.Caption := FloatToStr(dt) + ' с';
-    Label13.Caption := FloatToStr(trunc(st / 100)) + ' с';
-    Label30.Caption := FloatToStr(trunc(Drc[i])) + ' с';
-    Label8.Caption  := 'Топлива на ' + FloatToStr(trunc(Trmax-st/100)) + ' с полета';
-    Label31.Caption := 'из ' + FloatToStr(trunc(Trmax)) + ' с';
-    Label32.Caption := 'Промах ' + FloatToStr(trunc(DrcMin)) + ' м';
+    dtLabel.Caption     := 'dt ' + FloatToStr(dt) + ' с';
+    StLabel.Caption     := FloatToStr(trunc(st / 100)) + ' с';
+    DrcLabel.Caption    := 'До цели осталось ' + FloatToStr(trunc(Drc[i])) + ' с';
+    TrmaxLabel.Caption  := 'Топлива на ' + FloatToStr(trunc(Trmax-st/100)) + ' с полета' + 'из ' + FloatToStr(trunc(Trmax)) + ' с';
+    DrcMinLabel.Caption := 'Промах ' + FloatToStr(trunc(DrcMin)) + ' м';
 
     DrawTarget(False, Xc[i] / 1000, Zc[i] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2)); { Отрисовка цели }
     DrawTarget(True, Xr[i] / 1000, Zr[i] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2)); { Отрисовка ракеты }
@@ -514,11 +507,11 @@ begin
     RealPictureChart.Series[0].AddXY(Zc[i] / 1000, Xc[i] / 1000);
     RealPictureChart.Series[4].AddXY(Zr[i] / 1000, Xr[i] / 1000);
 
-    Chart2.Series[0].AddXY(st / 100, Drc[i]);
+    DistanceToTargetChart.Series[0].AddXY(st / 100, Drc[i]);
 
-    Chart3.Series[0].AddXY(st / 100, (PrcIzm[i] - Prc[i]) * 180 / pi);
-    Chart3.Series[2].AddXY(st / 100, (Kr - Prc[i]) * 180 / pi);
-    Chart3.Series[1].AddXY(st / 100, 0);
+    BearingChart.Series[0].AddXY(st / 100, (PrcIzm[i] - Prc[i]) * 180 / pi);
+    BearingChart.Series[2].AddXY(st / 100, (Kr - Prc[i]) * 180 / pi);
+    BearingChart.Series[1].AddXY(st / 100, 0);
 
     // TODO: Выделить взрыв в функцию
     if Explosion[i] = True then
@@ -532,17 +525,15 @@ begin
         RealPictureChart.Series[5].AddXY((Zc[i] + yy) / 1000, (Xc[i] + xx) / 1000);
       end;
 
-      Label14.Caption := '';
-      Label14.Font.Color := clRed;
-      Label14.Caption := 'Цель уничтожена';
+      StatusLabel.Font.Color := clRed;
+      StatusLabel.Caption := 'Цель уничтожена';
       Exit
     end;
 
     if (Trmax - st / 100) <= 0 then
     begin
-      Label14.Caption := '';
-      Label14.Font.Color := clRed;
-      Label14.Caption := 'Ракета самоликвидировалась';
+      StatusLabel.Font.Color := clRed;
+      StatusLabel.Caption := 'Ракета самоликвидировалась';
       for j := 1 to 100 do
       begin
         r := 300 * sqrt(-2 * Ln(random));
@@ -557,39 +548,38 @@ begin
     // СОВПРОВОЖДЕНИЕ ЦЕЛИ
     if (st / 100 > Tpoisk) and (PrSopr = True) then
     begin
-      Label14.Font.Color := clGreen;
-      Label14.Caption := 'Сопровождение цели';
+      StatusLabel.Font.Color := clGreen;
+      StatusLabel.Caption := 'Сопровождение цели';
     end
     else
     begin
-      Label14.Font.Color := clPurple;
-      if (CheckBox3.checked = True) then
-        Label14.Caption := 'срыв сопровождения, поиск'
+      StatusLabel.Font.Color := clPurple;
+      if (SearchModeAfterTrackingFailureControl.checked = True) then
+        StatusLabel.Caption := 'срыв сопровождения, поиск'
       else
-        Label14.Caption := 'срыв сопровождения';
+        StatusLabel.Caption := 'срыв сопровождения';
     end;
 
     if PrSoprLT then
     begin
-      Label14.Font.Color := clRed;
-      Label14.Caption := 'Сопровождение ложной цели';
+      StatusLabel.Font.Color := clRed;
+      StatusLabel.Caption := 'Сопровождение ложной цели';
     end;
 
     if (st / 100) <= Tstart then
     begin
-      Label14.Font.Color := clBlue;
-      Label14.Caption := 'Старт ракеты';
+      StatusLabel.Font.Color := clBlue;
+      StatusLabel.Caption := 'Старт ракеты';
     end;
 
     if (st / 100 > Tstart) and (st / 100 <= Tpoisk) then
     begin
-      Label14.Font.Color := clNavy;
-      Label14.Caption := 'Поиск цели';
+      StatusLabel.Font.Color := clNavy;
+      StatusLabel.Caption := 'Поиск цели';
     end;
 
-    // TODO: Это что
-    if CheckBox1.checked = false then
-      Sleep(500 - TrackBar1.Position * 55);
+    if SimulationSpeedCheckbox.checked = false then
+      Sleep(500 - SimulationSpeedBar.Position * 55);
 
     Application.ProcessMessages;
   end;
@@ -602,7 +592,7 @@ begin
 end;
 
 // COMMAND STOP
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.StopButtonClick(Sender: TObject);
 begin
   stop := True;
 end;

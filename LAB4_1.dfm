@@ -1,9 +1,9 @@
-﻿object Form1: TForm1
+object Form1: TForm1
   Left = 0
   Top = 0
   Caption = #1051#1072#1073#1086#1088#1072#1090#1086#1088#1085#1072#1103' '#1088#1072#1073#1086#1090#1072' '#8470'4-1 '#1057#1072#1084#1086#1085#1072#1074#1077#1076#1077#1085#1080#1077' '#1051#1040' '#1085#1072' '#1094#1077#1083#1100
-  ClientHeight = 1005
-  ClientWidth = 2564
+  ClientHeight = 1003
+  ClientWidth = 1981
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clTeal
@@ -14,9 +14,9 @@
   Position = poDesigned
   PixelsPerInch = 120
   TextHeight = 29
-  object Label28: TLabel
-    Left = 28
-    Top = -9
+  object TitleLabel: TLabel
+    Left = 20
+    Top = -1
     Width = 617
     Height = 48
     Caption = #1057#1072#1084#1086#1085#1072#1074#1077#1076#1077#1085#1080#1077' '#1088#1072#1082#1077#1090#1099' '#1085#1072' '#1094#1077#1083#1100
@@ -28,15 +28,8 @@
     ParentFont = False
     Transparent = True
   end
-  object Label27: TLabel
-    Left = 725
-    Top = 598
-    Width = 160
-    Height = 29
-    Caption = #1048#1047#1052#1045#1056#1045#1053#1048#1071
-  end
   object RealPictureChart: TChart
-    Left = 8
+    Left = 1
     Top = 45
     Width = 979
     Height = 966
@@ -90,7 +83,7 @@
     TabOrder = 0
     DefaultCanvas = 'TGDIPlusCanvas'
     ColorPaletteIndex = 13
-    object Label10: TLabel
+    object axisZ: TLabel
       Left = 596
       Top = 905
       Width = 71
@@ -104,7 +97,7 @@
       ParentFont = False
       Transparent = True
     end
-    object Label11: TLabel
+    object axisX: TLabel
       Left = 427
       Top = 0
       Width = 71
@@ -120,7 +113,7 @@
       ParentFont = False
       Transparent = True
     end
-    object РАКЕТА: TLabel
+    object RocketLabel: TLabel
       Left = 40
       Top = 705
       Width = 100
@@ -133,7 +126,7 @@
       Font.Style = []
       ParentFont = False
     end
-    object Label9: TLabel
+    object TargetLabel: TLabel
       Left = 34
       Top = 347
       Width = 70
@@ -146,12 +139,12 @@
       Font.Style = []
       ParentFont = False
     end
-    object Label21: TLabel
+    object CommonLabel: TLabel
       Left = 40
       Top = 64
-      Width = 180
+      Width = 92
       Height = 29
-      Caption = #1047#1054#1053#1040' '#1054#1041#1047#1054#1056#1040
+      Caption = #1054#1041#1065#1048#1045
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGray
       Font.Height = -25
@@ -159,7 +152,7 @@
       Font.Style = []
       ParentFont = False
     end
-    object Label26: TLabel
+    object MeasurementErrorLabel: TLabel
       Left = 627
       Top = 784
       Width = 276
@@ -172,7 +165,7 @@
       Font.Style = []
       ParentFont = False
     end
-    object LabeledEdit1: TLabeledEdit
+    object DrmaxControl: TLabeledEdit
       Left = 40
       Top = 740
       Width = 57
@@ -193,7 +186,7 @@
       TabOrder = 0
       Text = '50'
     end
-    object LabeledEdit2: TLabeledEdit
+    object VrmaxControl: TLabeledEdit
       Left = 40
       Top = 783
       Width = 57
@@ -212,8 +205,8 @@
       TabOrder = 1
       Text = '2000'
     end
-    object LabeledEdit3: TLabeledEdit
-      Left = 40
+    object NxmaxControl: TLabeledEdit
+      Left = 41
       Top = 826
       Width = 57
       Height = 37
@@ -231,7 +224,7 @@
       TabOrder = 2
       Text = '10'
     end
-    object LabeledEdit4: TLabeledEdit
+    object RvControl: TLabeledEdit
       Left = 40
       Top = 869
       Width = 57
@@ -250,7 +243,7 @@
       TabOrder = 3
       Text = '10'
     end
-    object LabeledEdit5: TLabeledEdit
+    object DcControl: TLabeledEdit
       Left = 40
       Top = 382
       Width = 57
@@ -263,7 +256,7 @@
       TabOrder = 4
       Text = '20'
     end
-    object LabeledEdit6: TLabeledEdit
+    object AzimcControl: TLabeledEdit
       Left = 40
       Top = 425
       Width = 57
@@ -276,8 +269,8 @@
       TabOrder = 5
       Text = '0'
     end
-    object LabeledEdit7: TLabeledEdit
-      Left = 40
+    object VcControl: TLabeledEdit
+      Left = 41
       Top = 468
       Width = 57
       Height = 37
@@ -289,8 +282,8 @@
       TabOrder = 6
       Text = '1000'
     end
-    object LabeledEdit8: TLabeledEdit
-      Left = 40
+    object KcControl: TLabeledEdit
+      Left = 41
       Top = 511
       Width = 57
       Height = 37
@@ -302,21 +295,23 @@
       TabOrder = 7
       Text = '0'
     end
-    object LabeledEdit9: TLabeledEdit
+    object DmaxControl: TLabeledEdit
       Left = 40
       Top = 99
       Width = 63
       Height = 37
       Alignment = taRightJustify
-      EditLabel.Width = 188
+      EditLabel.Width = 194
       EditLabel.Height = 29
-      EditLabel.Caption = #1052#1072#1082#1089'.'#1076#1072#1083#1100#1085#1086#1089#1090#1100
+      EditLabel.BiDiMode = bdLeftToRight
+      EditLabel.Caption = #1052#1072#1082#1089'. '#1076#1072#1083#1100#1085#1086#1089#1090#1100
+      EditLabel.ParentBiDiMode = False
       LabelPosition = lpRight
       TabOrder = 8
       Text = '50'
     end
-    object LabeledEdit10: TLabeledEdit
-      Left = 40
+    object ZonaObzControl: TLabeledEdit
+      Left = 41
       Top = 142
       Width = 63
       Height = 37
@@ -328,8 +323,8 @@
       TabOrder = 9
       Text = '60'
     end
-    object LabeledEdit11: TLabeledEdit
-      Left = 830
+    object TdiskControl: TLabeledEdit
+      Left = 831
       Top = 819
       Width = 63
       Height = 37
@@ -341,7 +336,7 @@
       TabOrder = 10
       Text = '10'
     end
-    object LabeledEdit12: TLabeledEdit
+    object MoControl: TLabeledEdit
       Left = 830
       Top = 862
       Width = 63
@@ -354,7 +349,7 @@
       TabOrder = 11
       Text = '0'
     end
-    object LabeledEdit13: TLabeledEdit
+    object CKOControl: TLabeledEdit
       Left = 830
       Top = 905
       Width = 64
@@ -367,7 +362,7 @@
       TabOrder = 12
       Text = '0'
     end
-    object LabeledEdit14: TLabeledEdit
+    object Ttr1Control: TLabeledEdit
       Left = 40
       Top = 554
       Width = 57
@@ -392,7 +387,7 @@
       TabOrder = 13
       Text = '0'
     end
-    object LabeledEdit15: TLabeledEdit
+    object Ttr2Control: TLabeledEdit
       Left = 40
       Top = 592
       Width = 57
@@ -417,8 +412,8 @@
       TabOrder = 14
       Text = '0'
     end
-    object LabeledEdit16: TLabeledEdit
-      Left = 40
+    object Ttr3Control: TLabeledEdit
+      Left = 41
       Top = 630
       Width = 57
       Height = 32
@@ -443,10 +438,10 @@
       Text = '0'
     end
     object CheckBox2: TCheckBox
-      Left = 56
+      Left = 40
       Top = 668
-      Width = 185
-      Height = 17
+      Width = 193
+      Height = 21
       Caption = #1057' '#1074#1099#1073#1088#1086#1089#1086#1084' '#1044#1054
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clTeal
@@ -455,9 +450,10 @@
       Font.Style = [fsItalic]
       ParentFont = False
       TabOrder = 16
+      WordWrap = True
     end
-    object CheckBox3: TCheckBox
-      Left = 56
+    object SearchModeAfterTrackingFailureControl: TCheckBox
+      Left = 65
       Top = 912
       Width = 433
       Height = 17
@@ -469,6 +465,7 @@
       Font.Style = [fsItalic]
       ParentFont = False
       TabOrder = 17
+      WordWrap = True
     end
     object Series2: TPointSeries
       Marks.BackColor = 33023
@@ -553,14 +550,14 @@
     Left = 918
     Top = 599
     Width = 317
-    Height = 129
-    TabOrder = 6
-    object Label3: TLabel
-      Left = 36
-      Top = 0
-      Width = 282
-      Height = 29
-      Caption = #1057#1082#1088#1086#1089#1090#1100' '#1084#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1080#1103
+    Height = 162
+    TabOrder = 4
+    object SimulationSpeedLabel: TLabel
+      Left = 20
+      Top = 8
+      Width = 288
+      Height = 58
+      Caption = #1057#1082#1088#1086#1089#1090#1100' '#1084#1086#1076#1077#1083#1080#1088#1086#1074#1072#1085#1080#1103' '#1056#1077#1075#1091#1083#1080#1088#1086#1074#1072#1077#1084#1072#1103
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGreen
       Font.Height = -23
@@ -568,24 +565,11 @@
       Font.Style = []
       ParentFont = False
       Transparent = True
+      WordWrap = True
     end
-    object Label29: TLabel
-      Left = 75
-      Top = 25
-      Width = 184
-      Height = 29
-      Caption = #1056#1077#1075#1091#1083#1080#1088#1091#1077#1084#1072#1103':'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -23
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsItalic]
-      ParentFont = False
-      Transparent = True
-    end
-    object CheckBox1: TCheckBox
-      Left = 57
-      Top = 102
+    object SimulationSpeedCheckbox: TCheckBox
+      Left = 25
+      Top = 118
       Width = 215
       Height = 20
       Caption = #1052#1072#1082#1089#1080#1084#1072#1083#1100#1085#1072#1103
@@ -598,6 +582,15 @@
       ParentFont = False
       State = cbChecked
       TabOrder = 0
+      WordWrap = True
+    end
+    object SimulationSpeedBar: TTrackBar
+      Left = 20
+      Top = 79
+      Width = 273
+      Height = 39
+      Max = 8
+      TabOrder = 1
     end
   end
   object Panel2: TPanel
@@ -605,13 +598,13 @@
     Top = 455
     Width = 317
     Height = 138
-    TabOrder = 5
-    object Label8: TLabel
+    TabOrder = 3
+    object TrmaxLabel: TLabel
       Left = 8
       Top = 84
-      Width = 56
+      Width = 189
       Height = 24
-      Caption = 'Label8'
+      Caption = #1058#1086#1087#1083#1080#1074#1072' '#1085#1072' 0 '#1089' '#1087#1086#1083#1077#1090#1072
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGray
       Font.Height = -18
@@ -619,26 +612,13 @@
       Font.Style = []
       ParentFont = False
     end
-    object Label7: TLabel
-      Left = 8
-      Top = 40
-      Width = 155
-      Height = 24
-      Caption = #1044#1086' '#1094#1077#1083#1080' '#1086#1089#1090#1072#1083#1086#1089#1100' '
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -18
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label13: TLabel
-      Left = -2
-      Top = 8
-      Width = 115
+    object StLabel: TLabel
+      Left = 68
+      Top = 0
+      Width = 45
       Height = 36
       Alignment = taRightJustify
-      Caption = 'Label13'
+      Caption = '0 '#1089
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
       Font.Height = -30
@@ -647,26 +627,12 @@
       ParentFont = False
       Transparent = True
     end
-    object Label23: TLabel
-      Left = 180
-      Top = 14
-      Width = 16
-      Height = 25
-      Caption = 'dt'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMaroon
-      Font.Height = -20
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      Transparent = True
-    end
-    object Label24: TLabel
+    object dtLabel: TLabel
       Left = 206
-      Top = 14
-      Width = 16
+      Top = 9
+      Width = 47
       Height = 25
-      Caption = 'dt'
+      Caption = 'dt 0 '#1089
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
       Font.Height = -20
@@ -675,12 +641,12 @@
       ParentFont = False
       Transparent = True
     end
-    object Label30: TLabel
-      Left = 192
-      Top = 40
-      Width = 66
+    object DrcLabel: TLabel
+      Left = 8
+      Top = 32
+      Width = 179
       Height = 24
-      Caption = 'Label30'
+      Caption = #1044#1086' '#1094#1077#1083#1080' '#1086#1089#1090#1072#1083#1086#1089#1100' 0 '#1089
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGray
       Font.Height = -18
@@ -688,25 +654,12 @@
       Font.Style = []
       ParentFont = False
     end
-    object Label31: TLabel
-      Left = 90
-      Top = 106
-      Width = 66
-      Height = 24
-      Caption = 'Label31'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -18
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label32: TLabel
+    object DrcMinLabel: TLabel
       Left = 8
       Top = 62
-      Width = 66
+      Width = 123
       Height = 24
-      Caption = 'Label32'
+      Caption = #1055#1088#1086#1084#1072#1093' '#1085#1072' 0 '#1084
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGray
       Font.Height = -18
@@ -714,15 +667,16 @@
       Font.Style = []
       ParentFont = False
     end
+    object TrackBar2: TTrackBar
+      Left = 292
+      Top = 7
+      Width = 25
+      Height = 131
+      Orientation = trVertical
+      TabOrder = 0
+    end
   end
-  object Panel1: TPanel
-    Left = 918
-    Top = 326
-    Width = 317
-    Height = 76
-    TabOrder = 4
-  end
-  object Button1: TButton
+  object StartButton: TButton
     Left = 926
     Top = 339
     Width = 145
@@ -735,9 +689,9 @@
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    OnClick = Button1Click
+    OnClick = StartButtonClick
   end
-  object Button2: TButton
+  object StopButton: TButton
     Left = 1077
     Top = 339
     Width = 139
@@ -750,19 +704,11 @@
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
-    OnClick = Button2Click
+    OnClick = StopButtonClick
   end
-  object TrackBar1: TTrackBar
-    Left = 942
-    Top = 656
-    Width = 273
-    Height = 39
-    Max = 8
-    TabOrder = 3
-  end
-  object Chart3: TChart
-    Left = 926
-    Top = 863
+  object BearingChart: TChart
+    Left = 1161
+    Top = 851
     Width = 972
     Height = 123
     BackWall.Brush.Style = bsClear
@@ -780,7 +726,7 @@
     LeftAxis.ExactDateTime = False
     LeftAxis.Grid.Visible = False
     View3D = False
-    TabOrder = 7
+    TabOrder = 5
     DefaultCanvas = 'TGDIPlusCanvas'
     ColorPaletteIndex = 13
     object Label6: TLabel
@@ -842,10 +788,10 @@
       YValues.Order = loNone
     end
   end
-  object Chart2: TChart
-    Left = 918
-    Top = 734
-    Width = 987
+  object DistanceToTargetChart: TChart
+    Left = 1161
+    Top = 743
+    Width = 972
     Height = 123
     BackWall.Brush.Style = bsClear
     Legend.Visible = False
@@ -862,7 +808,7 @@
     LeftAxis.ExactDateTime = False
     LeftAxis.Grid.Visible = False
     View3D = False
-    TabOrder = 8
+    TabOrder = 6
     DefaultCanvas = 'TGDIPlusCanvas'
     ColorPaletteIndex = 13
     object Label5: TLabel
@@ -903,27 +849,18 @@
       YValues.Order = loNone
     end
   end
-  object TrackBar2: TTrackBar
-    Left = 1191
-    Top = 455
-    Width = 25
-    Height = 131
-    Orientation = trVertical
-    TabOrder = 9
-  end
   object Panel5: TPanel
     Left = 918
     Top = 408
     Width = 317
     Height = 41
-    TabOrder = 10
-    object Label14: TLabel
+    TabOrder = 7
+    object StatusLabel: TLabel
       Left = 8
       Top = 5
-      Width = 78
+      Width = 7
       Height = 25
       Alignment = taCenter
-      Caption = 'Label14'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
       Font.Height = -20
