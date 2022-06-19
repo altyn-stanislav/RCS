@@ -1,4 +1,4 @@
-﻿unit LAB4_1;
+﻿unit LAB4;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Dialogs, TeEngine, Series, StdCtrls, ExtCtrls, TeeProcs, Chart, jpeg, Math,
   ComCtrls, Menus, CheckLst, VclTee.TeeGDIPlus,
 
-  Lab4_1Data;
+  ModelData;
 
 type
   TForm1 = class(TForm)
@@ -59,7 +59,7 @@ type
     Ttr1Control: TLabeledEdit;
     Ttr2Control: TLabeledEdit;
     Ttr3Control: TLabeledEdit;
-    CheckBox2: TCheckBox;
+    TrapCheckbox: TCheckBox;
     Series8: TPointSeries;
     Series9: TLineSeries;
     Panel5: TPanel;
@@ -77,7 +77,7 @@ type
 
 var
   Form1: TForm1;
-  stop, PrSopr, PrSoprLT, PrR: boolean;
+  stop, start, pause, PrSopr, PrSoprLT, PrR: boolean;
   i, jj: Integer;
 Procedure DrawTrap(Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min, lifetime, tr: Integer);
 Procedure DrawTarget(PrR: boolean; Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min: Integer);
@@ -90,19 +90,17 @@ implementation
 procedure TForm1.StartButtonClick(Sender: TObject);
 var
   IndP: TBitMap;
-  z, l, tr, tdiskr, Tstart, Tpoisk, itr, itr1, itr2, itr3: Integer;
-
-  Schetchik, j, CentreX, CentreY, lt2, xx, yy: Integer;
-  Dreal, AlphaReal, Dind, AlphaInd, K2, r, fi: real;
+  z, tr, j, xx, yy, tdiskr, Tstart, Tpoisk, itr, itr1, itr2, itr3: Integer;
+  r, fi, Wr, Wkc: real;
+  K: real; // Для индикатора
 
 begin
   stop := false;
 
-  // Init
-  dt := 0.1;
-  lifetime := 20;
   Tstart := 3;
   Tpoisk := 5;
+
+  Init();
 
   Drmax := StrToFloat(Form1.DrmaxControl.Text);
   Vrmax := StrToFloat(Form1.VrmaxControl.Text) * 1000 / 3600; // км в час перевод в метры в сек
@@ -110,24 +108,23 @@ begin
   Rv    := StrToFloat(Form1.RvControl.Text);
 
   Dc    := StrToFloat(Form1.DcControl.Text) * 1000; // км в м
-  Azimc := StrToFloat(Form1.AzimcControl.Text); // градусы
+  Azimc := StrToFloat(Form1.AzimcControl.Text);
   Vc    := StrToFloat(Form1.VcControl.Text) * 1000 / 3600; // км в час перевод в метры в сек
-  Kc    := StrToFloat(Form1.KcControl.Text); // градусы
+  Kc    := StrToFloat(Form1.KcControl.Text);
 
-  Dmax := round(StrToFloat(Form1.DmaxControl.Text)); // км
-  ZonaObz := round(StrToFloat(Form1.ZonaObzControl.Text)); // градусы
+  Dmax    := round(StrToFloat(Form1.DmaxControl.Text));
+  ZonaObz := round(StrToFloat(Form1.ZonaObzControl.Text));
 
   Tdisk := round(1 / StrToFloat(Form1.TdiskControl.Text) / dt);
-  MO := StrToFloat(Form1.MoControl.Text); // градусы
-  CKO := StrToFloat(Form1.CKOControl.Text); // градусы
+  MO    := StrToFloat(Form1.MoControl.Text);
+  CKO   := StrToFloat(Form1.CKOControl.Text);
 
-  // Время маневра + Дипольные отражатели
-  Ttr1 := round(StrToFloat(Form1.Ttr1Control.Text)); // сек
-  Ttr2 := round(StrToFloat(Form1.Ttr2Control.Text)); // сек
-  Ttr3 := round(StrToFloat(Form1.Ttr3Control.Text)); // сек
-
-  Trmax := Drmax * 1000 / Vrmax; // Максимальное время полета ракеты, с
+  Trmax := Drmax * 1000 / Vrmax;
   nymax := nxmax;
+
+  Ttr1 := round(StrToFloat(Form1.Ttr1Control.Text));
+  Ttr2 := round(StrToFloat(Form1.Ttr2Control.Text));
+  Ttr3 := round(StrToFloat(Form1.Ttr3Control.Text));
 
   if Ttr1 = 0 then Ttr1 := 10000;
   if Ttr2 = 0 then Ttr2 := 10000;
@@ -135,68 +132,36 @@ begin
 
   StatusLabel.Caption := '';
 
-  z := 0;
-  l := round((z - ZonaObz) / 4);
-  l := round((z + ZonaObz) / 4);
-  z := round((Dmax - Dmin) / 4);
-  l := Dmin;
-
-
-
   RealPictureChart.Series[0].Clear;
   RealPictureChart.Series[1].Clear;
   RealPictureChart.Series[2].Clear;
   RealPictureChart.Series[3].Clear;
   RealPictureChart.Series[4].Clear;
   RealPictureChart.Series[5].Clear;
+  RealPictureChart.LeftAxis.Automatic := false;
+  RealPictureChart.LeftAxis.SetMinMax(0, Dmax);
+  RealPictureChart.LeftAxis.Increment := 1.0;
+  RealPictureChart.LeftAxis.PositionPercent := 50;
+  RealPictureChart.BottomAxis.Automatic := false;
+  RealPictureChart.BottomAxis.SetMinMax(-(Dmax / 2), Dmax / 2);
+  RealPictureChart.BottomAxis.Increment := 1.0;
 
   DistanceToTargetChart.Series[0].Clear;
   DistanceToTargetChart.Series[1].Clear;
+  DistanceToTargetChart.BottomAxis.Automatic := false;
+  DistanceToTargetChart.BottomAxis.SetMinMax(0, Trmax);
+  DistanceToTargetChart.LeftAxis.Automatic := false;
+  DistanceToTargetChart.LeftAxis.SetMinMax(0, Dc);
+  DistanceToTargetChart.LeftAxis.Increment := 1.0;
 
   BearingChart.Series[0].Clear;
   BearingChart.Series[1].Clear;
   BearingChart.Series[2].Clear;
-
-  With RealPictureChart.LeftAxis do
-  begin
-    Automatic := false;
-    SetMinMax(0, Dmax);
-    Increment := 1.0;
-    PositionPercent := 50;
-  end;
-
-  With RealPictureChart.BottomAxis do
-  begin
-    Automatic := false;
-    SetMinMax(-(Dmax / 2), Dmax / 2);
-    Increment := 1.0;
-  end;
-
-  With DistanceToTargetChart.BottomAxis do
-  begin
-    Automatic := false;
-    SetMinMax(0, Trmax);
-  end;
-
-  With DistanceToTargetChart.LeftAxis do
-  begin
-    Automatic := false;
-    SetMinMax(0, Dc);
-    Increment := 1.0;
-  end;
-
-  With BearingChart.BottomAxis do
-  begin
-    Automatic := false;
-    SetMinMax(0, Trmax);
-  end;
-
-  With BearingChart.LeftAxis do
-  begin
-    Automatic := false;
-    SetMinMax(-5, 5);
-    Increment := 1.0;
-  end;
+  BearingChart.BottomAxis.Automatic := false;
+  BearingChart.BottomAxis.SetMinMax(0, Trmax);
+  BearingChart.LeftAxis.Automatic := false;
+  BearingChart.LeftAxis.SetMinMax(-5, 5);
+  BearingChart.LeftAxis.Increment := 1.0;
 
   for i := Dmin to Dmax + 20 do
   begin
@@ -247,6 +212,7 @@ begin
   Trap[1] := false;
   Drc[1] := Dc;
   DrcMin := 1000000;
+  IsTrap := TrapCheckbox.Checked;
 
   for i := 2 to N1 do
   begin
@@ -282,7 +248,7 @@ begin
 
     // Выброс облака дипольных отражателей
     Trap[i] := false;
-    if CheckBox2.checked = false then
+    if IsTrap = false then
     begin
       PrcIzm[i] := RandG(Prc[i], CKO * pi / 180) + MO * pi / 180; // Изменение пеленга с ошибками
     end
@@ -479,8 +445,6 @@ begin
     if stop = True then
       break;
 
-    IndP.loadFromFile('foundation.bmp');
-
     // ПАНЕЛЬ УПРАВЛЕНИЯ
     dtLabel.Caption     := 'dt ' + FloatToStr(dt) + ' с';
     StLabel.Caption     := FloatToStr(trunc(st / 100)) + ' с';
@@ -491,7 +455,7 @@ begin
     DrawTarget(False, Xc[i] / 1000, Zc[i] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2)); { Отрисовка цели }
     DrawTarget(True, Xr[i] / 1000, Zr[i] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2)); { Отрисовка ракеты }
 
-    if (Trap[i] = True) and (CheckBox2.checked = True) then
+    if (Trap[i] = True) and (IsTrap = True) then
     begin
       if (trunc(t) >= Ttr1) then
         DrawTrap(Xc[itr1] / 1000, Zc[itr1] / 1000, K, IndP, Dmax, Dmin, round(ZonaObz / 2), -round(ZonaObz / 2), lifetime, Ttr1);
@@ -599,8 +563,8 @@ end;
 
 Procedure DrawTrap(Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min, lifetime, tr: Integer);
 var
-  Bm: TBitMap;
-  Schetchik, j, CentreX, CentreY, lt2, xx, yy: Integer;
+  //Bm: TBitMap;
+  Schetchik, j, CentreX, CentreY, xx, yy: Integer;
   Dreal, AlphaReal, Dind, AlphaInd, K2, r, fi: real;
 
 begin
@@ -634,15 +598,15 @@ begin
 
   Dind := (Dreal - D_min) * K;
 
-  Bm := TBitMap.Create;
-  Bm.loadFromFile('indSector.bmp');
+  //Bm := TBitMap.Create;
+  //Bm.loadFromFile('indSector.bmp');
 
-  for j := 0 to round(Xind / 2) do
-    if (Bm.Canvas.pixels[(round(Xind / 2) + j), Yind - round(Dind)] <> clblack)
-    then
-      break
-    else
-      Schetchik := Schetchik + 1;
+//  for j := 0 to round(Xind / 2) do
+//    if (Bm.Canvas.pixels[(round(Xind / 2) + j), Yind - round(Dind)] <> clblack)
+//    then
+//      break
+//    else
+//      Schetchik := Schetchik + 1;
 
   K2 := Schetchik * 2 / (Alfa_max - Alfa_min);
   AlphaInd := (AlphaReal - Alfa_min) * K2;
@@ -665,12 +629,12 @@ begin
     bm1.Canvas.Arc(xx - 15, yy - 5, xx + 15, yy + 5, xx + 15, yy - 5, xx - 15, yy - 5);
   end;
 
-  Bm.Free;
+  //Bm.Free;
 end;
 
 Procedure DrawTarget(PrR: boolean; Xtarget, Ztarget, K: real; bm1: TBitMap; D_max, D_min, Alfa_max, Alfa_min: Integer);
 var
-  Bm: TBitMap;
+  //Bm: TBitMap;
   Schetchik, j, CentreX, CentreY: Integer;
   Dreal, AlphaReal, Dind, AlphaInd, K2: real;
 
@@ -706,10 +670,10 @@ begin
 
   Dind := (Dreal - D_min) * K;
 
-  Bm := TBitMap.Create;
-  Bm.loadFromFile('indSector.bmp');
+  //Bm := TBitMap.Create;
+  //Bm.loadFromFile('indSector.bmp');
   for j := 0 to round(Xind / 2) do
-    if (Bm.Canvas.pixels[(round(Xind / 2) + j), Yind - round(Dind)] <> clblack)
+    if (bm1.Canvas.pixels[(round(Xind / 2) + j), Yind - round(Dind)] <> clblack)
     then
       break
     else
@@ -733,7 +697,7 @@ begin
     if PrSopr then
       bm1.Canvas.Rectangle(CentreX - 20, CentreY - 20, CentreX + 20, CentreY + 20);
 
-  Bm.Free;
+  //Bm.Free;
 end;
 
 end.

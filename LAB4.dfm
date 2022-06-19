@@ -30,7 +30,7 @@ object Form1: TForm1
   end
   object RealPictureChart: TChart
     Left = 1
-    Top = 45
+    Top = 41
     Width = 979
     Height = 966
     BackImage.Inside = True
@@ -115,7 +115,7 @@ object Form1: TForm1
     end
     object RocketLabel: TLabel
       Left = 40
-      Top = 705
+      Top = 562
       Width = 100
       Height = 29
       Caption = #1056#1040#1050#1045#1058#1040
@@ -127,8 +127,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object TargetLabel: TLabel
-      Left = 34
-      Top = 347
+      Left = 41
+      Top = 195
       Width = 70
       Height = 29
       Caption = #1062#1045#1051#1068
@@ -153,8 +153,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object MeasurementErrorLabel: TLabel
-      Left = 627
-      Top = 784
+      Left = 618
+      Top = 562
       Width = 276
       Height = 29
       Caption = #1054#1064#1048#1041#1050#1048' '#1048#1047#1052#1045#1056#1045#1053#1048#1049
@@ -167,7 +167,7 @@ object Form1: TForm1
     end
     object DrmaxControl: TLabeledEdit
       Left = 40
-      Top = 740
+      Top = 597
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -188,7 +188,7 @@ object Form1: TForm1
     end
     object VrmaxControl: TLabeledEdit
       Left = 40
-      Top = 783
+      Top = 640
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -207,7 +207,7 @@ object Form1: TForm1
     end
     object NxmaxControl: TLabeledEdit
       Left = 41
-      Top = 826
+      Top = 683
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -226,7 +226,7 @@ object Form1: TForm1
     end
     object RvControl: TLabeledEdit
       Left = 40
-      Top = 869
+      Top = 726
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -245,7 +245,7 @@ object Form1: TForm1
     end
     object DcControl: TLabeledEdit
       Left = 40
-      Top = 382
+      Top = 230
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -258,7 +258,7 @@ object Form1: TForm1
     end
     object AzimcControl: TLabeledEdit
       Left = 40
-      Top = 425
+      Top = 273
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -270,8 +270,8 @@ object Form1: TForm1
       Text = '0'
     end
     object VcControl: TLabeledEdit
-      Left = 41
-      Top = 468
+      Left = 40
+      Top = 316
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -283,8 +283,8 @@ object Form1: TForm1
       Text = '1000'
     end
     object KcControl: TLabeledEdit
-      Left = 41
-      Top = 511
+      Left = 40
+      Top = 359
       Width = 57
       Height = 37
       Alignment = taRightJustify
@@ -325,7 +325,7 @@ object Form1: TForm1
     end
     object TdiskControl: TLabeledEdit
       Left = 831
-      Top = 819
+      Top = 597
       Width = 63
       Height = 37
       Alignment = taRightJustify
@@ -338,7 +338,7 @@ object Form1: TForm1
     end
     object MoControl: TLabeledEdit
       Left = 830
-      Top = 862
+      Top = 640
       Width = 63
       Height = 37
       Alignment = taRightJustify
@@ -351,7 +351,7 @@ object Form1: TForm1
     end
     object CKOControl: TLabeledEdit
       Left = 830
-      Top = 905
+      Top = 683
       Width = 64
       Height = 37
       Alignment = taRightJustify
@@ -364,7 +364,7 @@ object Form1: TForm1
     end
     object Ttr1Control: TLabeledEdit
       Left = 40
-      Top = 554
+      Top = 402
       Width = 57
       Height = 32
       Alignment = taRightJustify
@@ -389,7 +389,7 @@ object Form1: TForm1
     end
     object Ttr2Control: TLabeledEdit
       Left = 40
-      Top = 592
+      Top = 440
       Width = 57
       Height = 32
       Alignment = taRightJustify
@@ -413,8 +413,8 @@ object Form1: TForm1
       Text = '0'
     end
     object Ttr3Control: TLabeledEdit
-      Left = 41
-      Top = 630
+      Left = 40
+      Top = 478
       Width = 57
       Height = 32
       Alignment = taRightJustify
@@ -437,9 +437,9 @@ object Form1: TForm1
       TabOrder = 15
       Text = '0'
     end
-    object CheckBox2: TCheckBox
-      Left = 40
-      Top = 668
+    object TrapCheckbox: TCheckBox
+      Left = 41
+      Top = 516
       Width = 193
       Height = 21
       Caption = #1057' '#1074#1099#1073#1088#1086#1089#1086#1084' '#1044#1054
@@ -453,8 +453,8 @@ object Form1: TForm1
       WordWrap = True
     end
     object SearchModeAfterTrackingFailureControl: TCheckBox
-      Left = 65
-      Top = 912
+      Left = 41
+      Top = 769
       Width = 433
       Height = 17
       Caption = #1056#1077#1078#1080#1084' "'#1055#1086#1080#1089#1082'" '#1087#1086#1089#1083#1077' '#1089#1088#1099#1074#1072' '#1089#1086#1087#1088#1086#1074#1086#1078#1076#1077#1085#1080#1103
@@ -707,8 +707,8 @@ object Form1: TForm1
     OnClick = StopButtonClick
   end
   object BearingChart: TChart
-    Left = 1161
-    Top = 851
+    Left = 986
+    Top = 872
     Width = 972
     Height = 123
     BackWall.Brush.Style = bsClear
@@ -789,7 +789,7 @@ object Form1: TForm1
     end
   end
   object DistanceToTargetChart: TChart
-    Left = 1161
+    Left = 986
     Top = 743
     Width = 972
     Height = 123
